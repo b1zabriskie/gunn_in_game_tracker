@@ -30,15 +30,10 @@ p {
 
 .pitch-container {
     width: 95vw;
+
     max-width: 1400px;
 
     margin: 20px auto;
-
-    /*
-        Put the opponent goal,
-        field, and our goal
-        next to each other.
-    */
 
     display: flex;
 
@@ -59,18 +54,7 @@ p {
 
     font-size: 18px;
 
-    /*
-        Prevent the label from
-        wrapping onto multiple lines.
-    */
-
     white-space: nowrap;
-
-    /*
-        Prevent the labels from
-        shrinking when the screen
-        gets smaller.
-    */
 
     flex-shrink: 0;
 }
@@ -83,34 +67,15 @@ p {
 #pitch {
     display: block;
 
-    /*
-        Allow the pitch to take
-        up the available width.
-    */
-
     width: 100%;
 
     height: auto;
 
-    /*
-        Soccer field background.
-    */
-
     background-color: #4caf50;
-
-    /*
-        Border around the SVG.
-    */
 
     border: 3px solid white;
 
     outline: 2px solid black;
-
-    /*
-        Prevent a touchscreen
-        tap from being interpreted
-        as page scrolling.
-    */
 
     touch-action: none;
 
@@ -118,18 +83,12 @@ p {
 
     box-sizing: border-box;
 
-    /*
-        Important:
-        This allows the SVG to shrink
-        when the screen is smaller.
-    */
-
     min-width: 0;
 }
 
 
 /* =========================
-   FIELD BACKGROUND
+   FIELD
    ========================= */
 
 .pitch-background {
@@ -147,11 +106,6 @@ p {
     stroke-width: 0.35;
 
     fill: none;
-
-    /*
-        The markings should not
-        intercept the user's tap.
-    */
 
     pointer-events: none;
 }
@@ -194,17 +148,7 @@ p {
 
     stroke-width: 0.4;
 
-    /*
-        Hidden until the user
-        taps the field.
-    */
-
     visibility: hidden;
-
-    /*
-        The marker shouldn't
-        interfere with future taps.
-    */
 
     pointer-events: none;
 }
@@ -224,13 +168,126 @@ p {
 
 
 /* =========================
+   PRIMARY ACTION SECTION
+   ========================= */
+
+#action-section {
+    margin: 20px auto;
+
+    max-width: 900px;
+}
+
+
+/* Section heading */
+
+#action-section h2 {
+    margin-bottom: 12px;
+}
+
+
+/* =========================
+   ACTION BUTTONS
+   ========================= */
+
+.action-buttons {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 10px;
+}
+
+
+/* Individual action buttons */
+
+.action-button {
+    padding: 16px 10px;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    border: 2px solid #444;
+
+    border-radius: 6px;
+
+    background-color: white;
+
+    cursor: pointer;
+}
+
+
+/* Hover */
+
+.action-button:hover {
+    background-color: #eeeeee;
+}
+
+
+/* Selected action */
+
+.action-button.selected {
+    background-color: #4caf50;
+
+    color: white;
+
+    border-color: #2e7d32;
+}
+
+
+/* =========================
+   SELECTED ACTION TEXT
+   ========================= */
+
+#selected-action {
+    margin-top: 12px;
+
+    min-height: 22px;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   HIDDEN ELEMENT
+   ========================= */
+
+.hidden {
+    display: none;
+}
+
+
+/* =========================
    CLEAR BUTTON
    ========================= */
 
-button {
+#clear-button {
+    margin-top: 10px;
+
     padding: 10px 25px;
 
     font-size: 16px;
 
     cursor: pointer;
+}
+
+
+/* =========================
+   SMALLER SCREENS
+   ========================= */
+
+@media (max-width: 800px) {
+
+    .pitch-container {
+        gap: 8px;
+    }
+
+    .goal-label {
+        font-size: 14px;
+    }
+
+    .action-buttons {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
 }

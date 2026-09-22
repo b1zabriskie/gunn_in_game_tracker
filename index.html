@@ -16,17 +16,18 @@
 
     <p>Tap the location where the action started.</p>
 
+
+    <!-- =========================
+         PITCH
+         ========================= -->
+
     <div class="pitch-container">
 
-        <!-- Opponent goal label -->
-        <div class="goal-label side-label">
+        <!-- Opponent goal -->
+        <div class="goal-label">
             OPPONENT GOAL
         </div>
 
-
-        <!-- =========================
-             SOCCER PITCH
-             ========================= -->
 
         <svg
             id="pitch"
@@ -35,6 +36,7 @@
         >
 
             <!-- Green field -->
+
             <rect
                 x="0"
                 y="0"
@@ -45,6 +47,7 @@
 
 
             <!-- Outer boundary -->
+
             <rect
                 x="0"
                 y="0"
@@ -203,8 +206,9 @@
         </svg>
 
 
-        <!-- Our goal label -->
-        <div class="goal-label side-label">
+        <!-- Our goal -->
+
+        <div class="goal-label">
             OUR GOAL
         </div>
 
@@ -212,7 +216,7 @@
 
 
     <!-- =========================
-         LOCATION INFORMATION
+         LOCATION STATUS
          ========================= -->
 
     <div id="coordinates">
@@ -220,9 +224,63 @@
     </div>
 
 
-    <!-- Clear button -->
+    <!-- =========================
+         PRIMARY ACTION
+         ========================= -->
 
-    <button id="clear-button">
+    <section
+        id="action-section"
+        class="hidden"
+    >
+
+        <h2>Primary Action</h2>
+
+        <div class="action-buttons">
+
+            <button
+                class="action-button"
+                data-action="3rd Man Run"
+            >
+                3rd Man Run
+            </button>
+
+            <button
+                class="action-button"
+                data-action="Switch of Play"
+            >
+                Switch of Play
+            </button>
+
+            <button
+                class="action-button"
+                data-action="Penetrating Pass"
+            >
+                Penetrating Pass
+            </button>
+
+            <button
+                class="action-button"
+                data-action="Progressive Carry"
+            >
+                Progressive Carry
+            </button>
+
+        </div>
+
+        <div id="selected-action">
+            No action selected
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CLEAR BUTTON
+         ========================= -->
+
+    <button
+        id="clear-button"
+    >
         Clear
     </button>
 
