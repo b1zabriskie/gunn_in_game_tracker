@@ -12,23 +12,64 @@ p {
     margin-top: 0;
 }
 
-/* The soccer pitch */
-#pitch {
-    position: relative;
+
+/* =========================
+   PITCH CONTAINER
+   ========================= */
+
+.pitch-container {
     width: 90vw;
     max-width: 600px;
+    margin: 20px auto;
+}
+
+
+/* =========================
+   GOAL LABELS
+   ========================= */
+
+.goal-label {
+    font-weight: bold;
+    margin: 8px;
+}
+
+.goal-label.opponent {
+    margin-bottom: 10px;
+}
+
+.goal-label.own {
+    margin-top: 10px;
+}
+
+
+/* =========================
+   SOCCER PITCH
+   ========================= */
+
+#pitch {
+    position: relative;
+
+    width: 100%;
     aspect-ratio: 68 / 105;
 
-    margin: 20px auto;
-
     background-color: #4caf50;
+
     border: 3px solid white;
     outline: 2px solid black;
 
     cursor: crosshair;
+
+    /* Important for phones */
+    touch-action: none;
+
+    overflow: hidden;
 }
 
-/* Halfway line */
+
+/* =========================
+   CENTER LINE
+   ========================= */
+
 .halfway-line {
     position: absolute;
 
@@ -39,7 +80,11 @@ p {
     border-top: 2px solid white;
 }
 
-/* Center circle */
+
+/* =========================
+   CENTER CIRCLE
+   ========================= */
+
 .center-circle {
     position: absolute;
 
@@ -55,7 +100,9 @@ p {
     border-radius: 50%;
 }
 
+
 /* Center spot */
+
 .center-spot {
     position: absolute;
 
@@ -71,7 +118,11 @@ p {
     border-radius: 50%;
 }
 
-/* Penalty areas */
+
+/* =========================
+   PENALTY AREAS
+   ========================= */
+
 .penalty-area {
     position: absolute;
 
@@ -90,7 +141,11 @@ p {
     bottom: 0;
 }
 
-/* Goal areas */
+
+/* =========================
+   GOAL AREAS
+   ========================= */
+
 .goal-area {
     position: absolute;
 
@@ -109,33 +164,106 @@ p {
     bottom: 0;
 }
 
-/* Location marker */
+
+/* =========================
+   PENALTY SPOTS
+   ========================= */
+
+.penalty-spot {
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    background: white;
+    border-radius: 50%;
+}
+
+.penalty-spot.top {
+    top: 11%;
+}
+
+.penalty-spot.bottom {
+    bottom: 11%;
+}
+
+
+/* =========================
+   GOALS
+   ========================= */
+
+.goal {
+    position: absolute;
+
+    left: 40%;
+    width: 20%;
+    height: 2%;
+
+    background: white;
+
+    border: 1px solid black;
+}
+
+.goal.top {
+    top: -2%;
+}
+
+.goal.bottom {
+    bottom: -2%;
+}
+
+
+/* =========================
+   LOCATION MARKER
+   ========================= */
+
 #marker {
     display: none;
 
     position: absolute;
 
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
 
     background-color: red;
+
     border: 3px solid white;
+
     border-radius: 50%;
 
     transform: translate(-50%, -50%);
 
     pointer-events: none;
+
+    box-shadow: 0 0 4px black;
 }
 
-/* Coordinates */
+
+/* =========================
+   COORDINATES
+   ========================= */
+
 #coordinates {
     margin: 15px;
+
     font-family: monospace;
+
+    min-height: 20px;
 }
 
-/* Clear button */
+
+/* =========================
+   BUTTON
+   ========================= */
+
 button {
     padding: 10px 25px;
+
     font-size: 16px;
+
     cursor: pointer;
 }
