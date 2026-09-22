@@ -18,49 +18,190 @@
 
     <div class="pitch-container">
 
-        <div class="goal-label opponent">
+        <div class="goal-label">
             OPPONENT GOAL
         </div>
 
-        <div id="pitch">
+        <svg
+            id="pitch"
+            viewBox="0 0 68 105"
+            preserveAspectRatio="none"
+        >
 
-            <!-- Center line -->
-            <div class="halfway-line"></div>
+            <!-- Green field -->
+            <rect
+                x="0"
+                y="0"
+                width="68"
+                height="105"
+                class="pitch-background"
+            />
 
-            <!-- Center circle -->
-            <div class="center-circle"></div>
-            <div class="center-spot"></div>
+            <!-- Outer boundary -->
+            <rect
+                x="0"
+                y="0"
+                width="68"
+                height="105"
+                class="line"
+            />
 
-            <!-- Top penalty area -->
-            <div class="penalty-area top"></div>
-            <div class="goal-area top"></div>
-            <div class="penalty-spot top"></div>
 
-            <!-- Bottom penalty area -->
-            <div class="penalty-area bottom"></div>
-            <div class="goal-area bottom"></div>
-            <div class="penalty-spot bottom"></div>
+            <!-- =========================
+                 CENTER LINE
+                 ========================= -->
 
-            <!-- Goals -->
-            <div class="goal top"></div>
-            <div class="goal bottom"></div>
+            <line
+                x1="0"
+                y1="52.5"
+                x2="68"
+                y2="52.5"
+                class="line"
+            />
 
-            <!-- Location marker -->
-            <div id="marker"></div>
 
-        </div>
+            <!-- =========================
+                 CENTER CIRCLE
+                 ========================= -->
 
-        <div class="goal-label own">
+            <circle
+                cx="34"
+                cy="52.5"
+                r="9.15"
+                class="line"
+            />
+
+            <circle
+                cx="34"
+                cy="52.5"
+                r="0.5"
+                class="spot"
+            />
+
+
+            <!-- =========================
+                 TOP PENALTY AREA
+                 ========================= -->
+
+            <rect
+                x="12.9"
+                y="0"
+                width="42.2"
+                height="16.5"
+                class="line"
+            />
+
+            <rect
+                x="24.84"
+                y="0"
+                width="18.32"
+                height="5.5"
+                class="line"
+            />
+
+            <!-- Top penalty spot -->
+            <circle
+                cx="34"
+                cy="11"
+                r="0.5"
+                class="spot"
+            />
+
+            <!-- Top penalty arc -->
+            <path
+                d="M 26.7 16.5
+                   A 9.15 9.15 0 0 0 41.3 16.5"
+                class="line"
+                fill="none"
+            />
+
+
+            <!-- =========================
+                 BOTTOM PENALTY AREA
+                 ========================= -->
+
+            <rect
+                x="12.9"
+                y="88.5"
+                width="42.2"
+                height="16.5"
+                class="line"
+            />
+
+            <rect
+                x="24.84"
+                y="99.5"
+                width="18.32"
+                height="5.5"
+                class="line"
+            />
+
+            <!-- Bottom penalty spot -->
+            <circle
+                cx="34"
+                cy="94"
+                r="0.5"
+                class="spot"
+            />
+
+            <!-- Bottom penalty arc -->
+            <path
+                d="M 26.7 88.5
+                   A 9.15 9.15 0 0 1 41.3 88.5"
+                class="line"
+                fill="none"
+            />
+
+
+            <!-- =========================
+                 GOALS
+                 ========================= -->
+
+            <rect
+                x="30.5"
+                y="-2"
+                width="7"
+                height="2"
+                class="goal"
+            />
+
+            <rect
+                x="30.5"
+                y="105"
+                width="7"
+                height="2"
+                class="goal"
+            />
+
+
+            <!-- =========================
+                 LOCATION MARKER
+                 ========================= -->
+
+            <circle
+                id="marker"
+                cx="34"
+                cy="52.5"
+                r="1.5"
+            />
+
+        </svg>
+
+        <div class="goal-label">
             OUR GOAL
         </div>
 
     </div>
 
+
     <div id="coordinates">
         No location selected
     </div>
 
-    <button id="clear-button">Clear</button>
+    <button id="clear-button">
+        Clear
+    </button>
+
 
     <script src="script.js"></script>
 

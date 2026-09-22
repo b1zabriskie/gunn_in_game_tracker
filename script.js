@@ -5,55 +5,67 @@ const clearButton = document.getElementById("clear-button");
 
 
 /*
-    When the user touches or clicks the pitch,
-    determine where they touched it.
+    Handle both mouse clicks and
+    touchscreen taps.
 */
 
 pitch.addEventListener("pointerdown", function(event) {
 
-    // Get the pitch's position and size
-    const pitchRectangle = pitch.getBoundingClientRect();
-
-    // Find the touch/click position
-    // relative to the pitch
-    const x = event.clientX - pitchRectangle.left;
-    const y = event.clientY - pitchRectangle.top;
-
-    // Convert the position into percentages
-    const xPercent =
-        (x / pitchRectangle.width) * 100;
-
-    const yPercent =
-        (y / pitchRectangle.height) * 100;
-
-
     /*
-        Move the red marker
+        Get the size and position of
+        the SVG on the screen.
     */
 
-    marker.style.left = xPercent + "%";
-    marker.style.top = yPercent + "%";
-
-    marker.style.display = "block";
+    const rectangle = pitch.getBoundingClientRect();
 
 
     /*
-        Display the coordinates
+        Convert the screen position
+        into our pitch coordinate system.
+
+        The pitch is:
+
+        68 units wide
+        105 units long
+    */
+
+    const x =
+        ((event.clientX - rectangle.left)
+        / rectangle.width) * 68;
+
+    const y =
+        ((event.clientY - rectangle.top)
+        / rectangle.height) * 105;
+
+
+    /*
+        Move the marker to the
+        location that was tapped.
+    */
+
+    marker.setAttribute("cx", x);
+    marker.setAttribute("cy", y);
+
+    marker.style.visibility = "visible";
+
+
+    /*
+        Show the coordinates.
     */
 
     coordinates.textContent =
-        `Location: X = ${xPercent.toFixed(1)}%, Y = ${yPercent.toFixed(1)}%`;
+        `Pitch location: X = ${x.toFixed(1)}, Y = ${y.toFixed(1)}`;
 
 });
 
 
 /*
-    Clear the selected location
+    Clear the selected location.
 */
 
 clearButton.addEventListener("click", function() {
 
-    marker.style.display = "none";
+    marker.style.visibility = "hidden";
 
     coordinates.textContent =
         "No location selected";
