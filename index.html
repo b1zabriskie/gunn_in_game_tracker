@@ -18,13 +18,19 @@
 
     <div class="pitch-container">
 
-        <div class="goal-label">
+        <!-- Opponent goal label -->
+        <div class="goal-label side-label">
             OPPONENT GOAL
         </div>
 
+
+        <!-- =========================
+             SOCCER PITCH
+             ========================= -->
+
         <svg
             id="pitch"
-            viewBox="0 0 68 105"
+            viewBox="0 0 120 68"
             preserveAspectRatio="none"
         >
 
@@ -32,17 +38,18 @@
             <rect
                 x="0"
                 y="0"
-                width="68"
-                height="105"
+                width="120"
+                height="68"
                 class="pitch-background"
             />
+
 
             <!-- Outer boundary -->
             <rect
                 x="0"
                 y="0"
-                width="68"
-                height="105"
+                width="120"
+                height="68"
                 class="line"
             />
 
@@ -52,10 +59,10 @@
                  ========================= -->
 
             <line
-                x1="0"
-                y1="52.5"
-                x2="68"
-                y2="52.5"
+                x1="60"
+                y1="0"
+                x2="60"
+                y2="68"
                 class="line"
             />
 
@@ -65,89 +72,97 @@
                  ========================= -->
 
             <circle
-                cx="34"
-                cy="52.5"
-                r="9.15"
+                cx="60"
+                cy="34"
+                r="10"
                 class="line"
             />
 
             <circle
-                cx="34"
-                cy="52.5"
+                cx="60"
+                cy="34"
                 r="0.5"
                 class="spot"
             />
 
 
             <!-- =========================
-                 TOP PENALTY AREA
+                 LEFT PENALTY AREA
                  ========================= -->
 
             <rect
-                x="12.9"
-                y="0"
-                width="42.2"
-                height="16.5"
+                x="0"
+                y="12"
+                width="18"
+                height="44"
                 class="line"
             />
+
+            <!-- Left 6-yard box -->
 
             <rect
-                x="24.84"
-                y="0"
-                width="18.32"
-                height="5.5"
+                x="0"
+                y="24"
+                width="6"
+                height="20"
                 class="line"
             />
 
-            <!-- Top penalty spot -->
+            <!-- Left penalty spot -->
+
             <circle
-                cx="34"
-                cy="11"
+                cx="12"
+                cy="34"
                 r="0.5"
                 class="spot"
             />
 
-            <!-- Top penalty arc -->
+            <!-- Left penalty arc -->
+
             <path
-                d="M 26.7 16.5
-                   A 9.15 9.15 0 0 0 41.3 16.5"
+                d="M 18 26
+                   A 10 10 0 0 1 18 42"
                 class="line"
                 fill="none"
             />
 
 
             <!-- =========================
-                 BOTTOM PENALTY AREA
+                 RIGHT PENALTY AREA
                  ========================= -->
 
             <rect
-                x="12.9"
-                y="88.5"
-                width="42.2"
-                height="16.5"
+                x="102"
+                y="12"
+                width="18"
+                height="44"
                 class="line"
             />
+
+            <!-- Right 6-yard box -->
 
             <rect
-                x="24.84"
-                y="99.5"
-                width="18.32"
-                height="5.5"
+                x="114"
+                y="24"
+                width="6"
+                height="20"
                 class="line"
             />
 
-            <!-- Bottom penalty spot -->
+            <!-- Right penalty spot -->
+
             <circle
-                cx="34"
-                cy="94"
+                cx="108"
+                cy="34"
                 r="0.5"
                 class="spot"
             />
 
-            <!-- Bottom penalty arc -->
+            <!-- Right penalty arc -->
+
             <path
-                d="M 26.7 88.5
-                   A 9.15 9.15 0 0 1 41.3 88.5"
+                d="M 102 26
+                   A 10 10 0 0 0 102 42"
                 class="line"
                 fill="none"
             />
@@ -158,18 +173,18 @@
                  ========================= -->
 
             <rect
-                x="30.5"
-                y="-2"
-                width="7"
-                height="2"
+                x="-2"
+                y="30.5"
+                width="2"
+                height="7"
                 class="goal"
             />
 
             <rect
-                x="30.5"
-                y="105"
-                width="7"
-                height="2"
+                x="120"
+                y="30.5"
+                width="2"
+                height="7"
                 class="goal"
             />
 
@@ -180,23 +195,32 @@
 
             <circle
                 id="marker"
-                cx="34"
-                cy="52.5"
+                cx="60"
+                cy="34"
                 r="1.5"
             />
 
         </svg>
 
-        <div class="goal-label">
+
+        <!-- Our goal label -->
+        <div class="goal-label side-label">
             OUR GOAL
         </div>
 
     </div>
 
 
+    <!-- =========================
+         LOCATION INFORMATION
+         ========================= -->
+
     <div id="coordinates">
         No location selected
     </div>
+
+
+    <!-- Clear button -->
 
     <button id="clear-button">
         Clear

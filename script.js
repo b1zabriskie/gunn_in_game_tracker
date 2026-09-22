@@ -5,8 +5,8 @@ const clearButton = document.getElementById("clear-button");
 
 
 /*
-    Handle both mouse clicks and
-    touchscreen taps.
+    When the user touches or clicks
+    the pitch...
 */
 
 pitch.addEventListener("pointerdown", function(event) {
@@ -25,21 +25,21 @@ pitch.addEventListener("pointerdown", function(event) {
 
         The pitch is:
 
-        68 units wide
-        105 units long
+        120 yards long
+        68 yards wide
     */
 
     const x =
         ((event.clientX - rectangle.left)
-        / rectangle.width) * 68;
+        / rectangle.width) * 120;
 
     const y =
         ((event.clientY - rectangle.top)
-        / rectangle.height) * 105;
+        / rectangle.height) * 68;
 
 
     /*
-        Move the marker to the
+        Move the red marker to the
         location that was tapped.
     */
 

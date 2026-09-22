@@ -1,6 +1,12 @@
-body {
+/* =========================
+   GENERAL PAGE
+   ========================= */
+
+   body {
     font-family: Arial, sans-serif;
+
     text-align: center;
+
     margin: 20px;
 }
 
@@ -23,10 +29,24 @@ p {
    ========================= */
 
 .pitch-container {
-    width: 90vw;
-    max-width: 600px;
+    width: 95vw;
+    max-width: 1400px;
 
     margin: 20px auto;
+
+    /*
+        Put the opponent goal,
+        field, and our goal
+        next to each other.
+    */
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 15px;
 }
 
 
@@ -35,12 +55,24 @@ p {
    ========================= */
 
 .goal-label {
-    display: block;
-
     font-weight: bold;
+
     font-size: 18px;
 
-    margin: 10px 0;
+    /*
+        Prevent the label from
+        wrapping onto multiple lines.
+    */
+
+    white-space: nowrap;
+
+    /*
+        Prevent the labels from
+        shrinking when the screen
+        gets smaller.
+    */
+
+    flex-shrink: 0;
 }
 
 
@@ -51,33 +83,53 @@ p {
 #pitch {
     display: block;
 
+    /*
+        Allow the pitch to take
+        up the available width.
+    */
+
     width: 100%;
+
     height: auto;
+
+    /*
+        Soccer field background.
+    */
 
     background-color: #4caf50;
 
+    /*
+        Border around the SVG.
+    */
+
     border: 3px solid white;
+
     outline: 2px solid black;
 
     /*
-        Prevent the browser from
-        treating a finger touch as
-        page scrolling.
+        Prevent a touchscreen
+        tap from being interpreted
+        as page scrolling.
     */
+
     touch-action: none;
 
     cursor: crosshair;
 
-    /*
-        Make sure the SVG sits
-        normally in the page.
-    */
     box-sizing: border-box;
+
+    /*
+        Important:
+        This allows the SVG to shrink
+        when the screen is smaller.
+    */
+
+    min-width: 0;
 }
 
 
 /* =========================
-   FIELD
+   FIELD BACKGROUND
    ========================= */
 
 .pitch-background {
@@ -91,13 +143,16 @@ p {
 
 .line {
     stroke: white;
+
     stroke-width: 0.35;
+
     fill: none;
 
     /*
-        The pitch itself should
-        receive the touch event.
+        The markings should not
+        intercept the user's tap.
     */
+
     pointer-events: none;
 }
 
@@ -108,6 +163,7 @@ p {
 
 .spot {
     fill: white;
+
     pointer-events: none;
 }
 
@@ -118,7 +174,9 @@ p {
 
 .goal {
     fill: white;
+
     stroke: black;
+
     stroke-width: 0.2;
 
     pointer-events: none;
@@ -133,9 +191,20 @@ p {
     fill: red;
 
     stroke: white;
+
     stroke-width: 0.4;
 
+    /*
+        Hidden until the user
+        taps the field.
+    */
+
     visibility: hidden;
+
+    /*
+        The marker shouldn't
+        interfere with future taps.
+    */
 
     pointer-events: none;
 }
@@ -155,7 +224,7 @@ p {
 
 
 /* =========================
-   BUTTON
+   CLEAR BUTTON
    ========================= */
 
 button {
