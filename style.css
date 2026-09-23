@@ -2,11 +2,9 @@
    GENERAL PAGE
    ========================= */
 
-   body {
+body {
     font-family: Arial, sans-serif;
-
     text-align: center;
-
     margin: 20px;
 }
 
@@ -30,15 +28,12 @@ p {
 
 .pitch-container {
     width: 95vw;
-
     max-width: 1400px;
 
     margin: 20px auto;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
     gap: 15px;
@@ -51,11 +46,9 @@ p {
 
 .goal-label {
     font-weight: bold;
-
     font-size: 18px;
 
     white-space: nowrap;
-
     flex-shrink: 0;
 }
 
@@ -68,21 +61,17 @@ p {
     display: block;
 
     width: 100%;
-
     height: auto;
 
     background-color: #4caf50;
 
     border: 3px solid white;
-
     outline: 2px solid black;
 
     touch-action: none;
-
     cursor: crosshair;
 
     box-sizing: border-box;
-
     min-width: 0;
 }
 
@@ -102,9 +91,7 @@ p {
 
 .line {
     stroke: white;
-
     stroke-width: 0.35;
-
     fill: none;
 
     pointer-events: none;
@@ -117,7 +104,6 @@ p {
 
 .spot {
     fill: white;
-
     pointer-events: none;
 }
 
@@ -128,9 +114,7 @@ p {
 
 .goal {
     fill: white;
-
     stroke: black;
-
     stroke-width: 0.2;
 
     pointer-events: none;
@@ -143,13 +127,10 @@ p {
 
 #marker {
     fill: red;
-
     stroke: white;
-
     stroke-width: 0.4;
 
     visibility: hidden;
-
     pointer-events: none;
 }
 
@@ -160,7 +141,6 @@ p {
 
 #coordinates {
     margin: 15px;
-
     min-height: 20px;
 
     font-family: monospace;
@@ -168,25 +148,25 @@ p {
 
 
 /* =========================
-   PRIMARY ACTION SECTION
+   SECTIONS
    ========================= */
 
-#action-section {
+#action-section,
+#outcome-section,
+#result-section {
     margin: 20px auto;
-
     max-width: 900px;
 }
 
-
-/* Section heading */
-
-#action-section h2 {
+#action-section h2,
+#outcome-section h2,
+#result-section h2 {
     margin-bottom: 12px;
 }
 
 
 /* =========================
-   ACTION BUTTONS
+   PRIMARY ACTION BUTTONS
    ========================= */
 
 .action-buttons {
@@ -198,17 +178,13 @@ p {
 }
 
 
-/* Individual action buttons */
-
 .action-button {
     padding: 16px 10px;
 
     font-size: 16px;
-
     font-weight: bold;
 
     border: 2px solid #444;
-
     border-radius: 6px;
 
     background-color: white;
@@ -217,14 +193,10 @@ p {
 }
 
 
-/* Hover */
-
 .action-button:hover {
     background-color: #eeeeee;
 }
 
-
-/* Selected action */
 
 .action-button.selected {
     background-color: #4caf50;
@@ -236,7 +208,7 @@ p {
 
 
 /* =========================
-   SELECTED ACTION TEXT
+   SELECTED ACTION
    ========================= */
 
 #selected-action {
@@ -249,7 +221,144 @@ p {
 
 
 /* =========================
-   HIDDEN ELEMENT
+   OUTCOME BUTTONS
+   ========================= */
+
+.outcome-buttons {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 10px;
+
+    max-width: 600px;
+
+    margin: 0 auto;
+}
+
+
+.outcome-button {
+    padding: 18px 10px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    border: 2px solid #444;
+    border-radius: 6px;
+
+    background-color: white;
+
+    cursor: pointer;
+}
+
+
+.outcome-button:hover {
+    background-color: #eeeeee;
+}
+
+
+.outcome-button.selected {
+    background-color: #4caf50;
+
+    color: white;
+
+    border-color: #2e7d32;
+}
+
+
+/* =========================
+   SELECTED OUTCOME
+   ========================= */
+
+#selected-outcome {
+    margin-top: 12px;
+
+    min-height: 22px;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   RESULT TAGS
+   ========================= */
+
+.result-instruction {
+    margin-bottom: 12px;
+
+    font-size: 15px;
+}
+
+
+/*
+    The result buttons are intentionally
+    separate from the primary-action buttons.
+
+    Multiple buttons can be selected at
+    the same time.
+*/
+
+.result-buttons {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 10px;
+}
+
+
+.result-button {
+    padding: 16px 10px;
+
+    font-size: 16px;
+    font-weight: bold;
+
+    border: 2px solid #444;
+    border-radius: 6px;
+
+    background-color: white;
+
+    cursor: pointer;
+}
+
+
+.result-button:hover {
+    background-color: #eeeeee;
+}
+
+
+/*
+    Selected result tags stay highlighted.
+
+    Unlike Primary Action, clicking another
+    result does NOT remove the previous
+    selection.
+*/
+
+.result-button.selected {
+    background-color: #4caf50;
+
+    color: white;
+
+    border-color: #2e7d32;
+}
+
+
+/* =========================
+   SELECTED RESULTS
+   ========================= */
+
+#selected-results {
+    margin-top: 12px;
+
+    min-height: 22px;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   HIDDEN SECTIONS
    ========================= */
 
 .hidden {
@@ -290,4 +399,7 @@ p {
         grid-template-columns: repeat(2, 1fr);
     }
 
+    .result-buttons {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }

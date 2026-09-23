@@ -23,7 +23,6 @@
 
     <div class="pitch-container">
 
-        <!-- Opponent goal -->
         <div class="goal-label">
             OPPONENT GOAL
         </div>
@@ -36,7 +35,6 @@
         >
 
             <!-- Green field -->
-
             <rect
                 x="0"
                 y="0"
@@ -45,9 +43,7 @@
                 class="pitch-background"
             />
 
-
             <!-- Outer boundary -->
-
             <rect
                 x="0"
                 y="0"
@@ -56,11 +52,7 @@
                 class="line"
             />
 
-
-            <!-- =========================
-                 CENTER LINE
-                 ========================= -->
-
+            <!-- Center line -->
             <line
                 x1="60"
                 y1="0"
@@ -69,11 +61,7 @@
                 class="line"
             />
 
-
-            <!-- =========================
-                 CENTER CIRCLE
-                 ========================= -->
-
+            <!-- Center circle -->
             <circle
                 cx="60"
                 cy="34"
@@ -101,8 +89,6 @@
                 class="line"
             />
 
-            <!-- Left 6-yard box -->
-
             <rect
                 x="0"
                 y="24"
@@ -111,16 +97,12 @@
                 class="line"
             />
 
-            <!-- Left penalty spot -->
-
             <circle
                 cx="12"
                 cy="34"
                 r="0.5"
                 class="spot"
             />
-
-            <!-- Left penalty arc -->
 
             <path
                 d="M 18 26
@@ -142,8 +124,6 @@
                 class="line"
             />
 
-            <!-- Right 6-yard box -->
-
             <rect
                 x="114"
                 y="24"
@@ -152,16 +132,12 @@
                 class="line"
             />
 
-            <!-- Right penalty spot -->
-
             <circle
                 cx="108"
                 cy="34"
                 r="0.5"
                 class="spot"
             />
-
-            <!-- Right penalty arc -->
 
             <path
                 d="M 102 26
@@ -171,9 +147,7 @@
             />
 
 
-            <!-- =========================
-                 GOALS
-                 ========================= -->
+            <!-- Goals -->
 
             <rect
                 x="-2"
@@ -192,9 +166,7 @@
             />
 
 
-            <!-- =========================
-                 LOCATION MARKER
-                 ========================= -->
+            <!-- Location marker -->
 
             <circle
                 id="marker"
@@ -205,8 +177,6 @@
 
         </svg>
 
-
-        <!-- Our goal -->
 
         <div class="goal-label">
             OUR GOAL
@@ -275,12 +245,100 @@
 
 
     <!-- =========================
+         OUTCOME
+         ========================= -->
+
+    <section
+        id="outcome-section"
+        class="hidden"
+    >
+
+        <h2>Outcome</h2>
+
+        <div class="outcome-buttons">
+
+            <button
+                id="successful-button"
+                class="outcome-button"
+            >
+                Successful
+            </button>
+
+            <button
+                id="unsuccessful-button"
+                class="outcome-button"
+            >
+                Unsuccessful
+            </button>
+
+        </div>
+
+        <div id="selected-outcome">
+            No outcome selected
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         SUCCESSFUL RESULT TAGS
+         ========================= -->
+
+    <section
+        id="result-section"
+        class="hidden"
+    >
+
+        <h2>Result</h2>
+
+        <p class="result-instruction">
+            Select all that apply.
+        </p>
+
+        <div class="result-buttons">
+
+            <button
+                class="result-button"
+                data-result="Broke a Line"
+            >
+                Broke a Line
+            </button>
+
+            <button
+                class="result-button"
+                data-result="Attacking 3rd Entry"
+            >
+                Attacking 3rd Entry
+            </button>
+
+            <button
+                class="result-button"
+                data-result="Box Entry"
+            >
+                Box Entry
+            </button>
+
+            <button
+                class="result-button"
+                data-result="Shot"
+            >
+                Shot
+            </button>
+
+        </div>
+
+        <div id="selected-results">
+            No results selected
+        </div>
+
+    </section>
+
+
+    <!-- =========================
          CLEAR BUTTON
          ========================= -->
 
-    <button
-        id="clear-button"
-    >
+    <button id="clear-button">
         Clear
     </button>
 
