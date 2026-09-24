@@ -12,687 +12,678 @@
 
 <body>
 
-    <h1>Soccer Data Collection</h1>
+    <div class="container">
 
-    <p id="page-instruction">
-        Tap the location where the action started.
-    </p>
+        <h1>Soccer Data Collection</h1>
+
+        <!-- ========================= -->
+        <!-- DATA COLLECTION VIEW -->
+        <!-- ========================= -->
+
+        <div id="data-collection-view">
+
+            <!-- GAME CLOCK -->
+
+            <section class="game-clock-section">
+
+                <div class="clock-header">
+                    <h2>Match Clock</h2>
+
+                    <div class="half-indicator" id="half-indicator">
+                        1st Half
+                    </div>
+                </div>
+
+                <div class="game-clock" id="game-clock">
+                    00:00
+                </div>
+
+                <div class="clock-controls">
+
+                    <button
+                        id="start-clock-button"
+                        class="clock-button"
+                    >
+                        Start
+                    </button>
+
+                    <button
+                        id="pause-clock-button"
+                        class="clock-button secondary-clock-button"
+                        disabled
+                    >
+                        Pause
+                    </button>
+
+                    <button
+                        id="start-second-half-button"
+                        class="clock-button secondary-clock-button"
+                    >
+                        Start 2nd Half
+                    </button>
+
+                </div>
+
+                <div
+                    class="clock-status"
+                    id="clock-status"
+                >
+                    Clock stopped
+                </div>
+
+            </section>
 
 
-    <!-- ==================================================
-         DATA COLLECTION VIEW
-         ================================================== -->
+            <!-- PITCH -->
 
-    <div id="data-view">
+            <section class="pitch-section">
+
+                <h2>Tap Location of Event</h2>
+
+                <div class="pitch-container">
+
+                    <svg
+                        id="soccer-pitch"
+                        viewBox="0 0 120 68"
+                        preserveAspectRatio="xMidYMid meet"
+                    >
+
+                        <!-- Pitch background -->
+                        <rect
+                            x="0"
+                            y="0"
+                            width="120"
+                            height="68"
+                            class="pitch-background"
+                        />
+
+                        <!-- Outer boundary -->
+                        <rect
+                            x="0"
+                            y="0"
+                            width="120"
+                            height="68"
+                            class="pitch-line"
+                        />
+
+                        <!-- Halfway line -->
+                        <line
+                            x1="60"
+                            y1="0"
+                            x2="60"
+                            y2="68"
+                            class="pitch-line"
+                        />
+
+                        <!-- Center circle -->
+                        <circle
+                            cx="60"
+                            cy="34"
+                            r="9.15"
+                            class="pitch-line"
+                        />
+
+                        <!-- Center spot -->
+                        <circle
+                            cx="60"
+                            cy="34"
+                            r="0.5"
+                            class="pitch-fill"
+                        />
+
+                        <!-- ===================== -->
+                        <!-- LEFT PENALTY AREA -->
+                        <!-- ===================== -->
+
+                        <rect
+                            x="0"
+                            y="13.84"
+                            width="18"
+                            height="40.32"
+                            class="pitch-line"
+                        />
+
+                        <!-- Left six-yard box -->
+                        <rect
+                            x="0"
+                            y="24.84"
+                            width="6"
+                            height="18.32"
+                            class="pitch-line"
+                        />
+
+                        <!-- Left penalty spot -->
+                        <circle
+                            cx="12"
+                            cy="34"
+                            r="0.5"
+                            class="pitch-fill"
+                        />
+
+                        <!-- Left penalty arc -->
+                        <path
+                            d="M 18 24.86
+                               A 9.15 9.15 0 0 1 18 43.14"
+                            class="pitch-line"
+                            fill="none"
+                        />
+
+                        <!-- ===================== -->
+                        <!-- RIGHT PENALTY AREA -->
+                        <!-- ===================== -->
+
+                        <rect
+                            x="102"
+                            y="13.84"
+                            width="18"
+                            height="40.32"
+                            class="pitch-line"
+                        />
+
+                        <!-- Right six-yard box -->
+                        <rect
+                            x="114"
+                            y="24.84"
+                            width="6"
+                            height="18.32"
+                            class="pitch-line"
+                        />
+
+                        <!-- Right penalty spot -->
+                        <circle
+                            cx="108"
+                            cy="34"
+                            r="0.5"
+                            class="pitch-fill"
+                        />
+
+                        <!-- Right penalty arc -->
+                        <path
+                            d="M 102 24.86
+                               A 9.15 9.15 0 0 0 102 43.14"
+                            class="pitch-line"
+                            fill="none"
+                        />
+
+                        <!-- Event marker -->
+                        <circle
+                            id="location-marker"
+                            cx="0"
+                            cy="0"
+                            r="1.5"
+                            class="location-marker"
+                            visibility="hidden"
+                        />
+
+                    </svg>
+
+                </div>
+
+                <div
+                    id="location-display"
+                    class="location-display"
+                >
+                    Tap the pitch to select a location.
+                </div>
+
+            </section>
 
 
-        <!-- =========================
-             PITCH
-             ========================= -->
+            <!-- PRIMARY ACTION -->
 
-        <div class="pitch-container">
-
-            <div class="goal-label">
-                OPPONENT GOAL
-            </div>
-
-
-            <svg
-                id="pitch"
-                viewBox="0 0 120 68"
-                preserveAspectRatio="none"
+            <section
+                id="action-section"
+                class="input-section hidden"
             >
 
-                <!-- Green field -->
-                <rect
-                    x="0"
-                    y="0"
-                    width="120"
-                    height="68"
-                    class="pitch-background"
-                />
-
-                <!-- Outer boundary -->
-                <rect
-                    x="0"
-                    y="0"
-                    width="120"
-                    height="68"
-                    class="line"
-                />
-
-                <!-- Center line -->
-                <line
-                    x1="60"
-                    y1="0"
-                    x2="60"
-                    y2="68"
-                    class="line"
-                />
-
-                <!-- Center circle -->
-                <circle
-                    cx="60"
-                    cy="34"
-                    r="10"
-                    class="line"
-                />
-
-                <circle
-                    cx="60"
-                    cy="34"
-                    r="0.5"
-                    class="spot"
-                />
-
-
-                <!-- =========================
-                     LEFT PENALTY AREA
-                     ========================= -->
-
-                <rect
-                    x="0"
-                    y="12"
-                    width="18"
-                    height="44"
-                    class="line"
-                />
-
-                <rect
-                    x="0"
-                    y="24"
-                    width="6"
-                    height="20"
-                    class="line"
-                />
-
-                <circle
-                    cx="12"
-                    cy="34"
-                    r="0.5"
-                    class="spot"
-                />
-
-                <path
-                    d="M 18 26
-                       A 10 10 0 0 1 18 42"
-                    class="line"
-                    fill="none"
-                />
-
-
-                <!-- =========================
-                     RIGHT PENALTY AREA
-                     ========================= -->
-
-                <rect
-                    x="102"
-                    y="12"
-                    width="18"
-                    height="44"
-                    class="line"
-                />
-
-                <rect
-                    x="114"
-                    y="24"
-                    width="6"
-                    height="20"
-                    class="line"
-                />
-
-                <circle
-                    cx="108"
-                    cy="34"
-                    r="0.5"
-                    class="spot"
-                />
-
-                <path
-                    d="M 102 26
-                       A 10 10 0 0 0 102 42"
-                    class="line"
-                    fill="none"
-                />
-
-
-                <!-- Goals -->
-
-                <rect
-                    x="-2"
-                    y="30.5"
-                    width="2"
-                    height="7"
-                    class="goal"
-                />
-
-                <rect
-                    x="120"
-                    y="30.5"
-                    width="2"
-                    height="7"
-                    class="goal"
-                />
-
-
-                <!-- Location marker -->
-
-                <circle
-                    id="marker"
-                    cx="60"
-                    cy="34"
-                    r="1.5"
-                />
-
-            </svg>
-
-
-            <div class="goal-label">
-                OUR GOAL
-            </div>
-
-        </div>
-
-
-        <!-- =========================
-             LOCATION STATUS
-             ========================= -->
-
-        <div id="coordinates">
-            No location selected
-        </div>
-
-
-        <!-- =========================
-             PRIMARY ACTION
-             ========================= -->
-
-        <section
-            id="action-section"
-            class="hidden"
-        >
-
-            <h2>Primary Action</h2>
-
-            <div class="action-buttons">
-
-                <button
-                    class="action-button"
-                    data-action="3rd Man Run"
-                >
-                    3rd Man Run
-                </button>
-
-                <button
-                    class="action-button"
-                    data-action="Switch of Play"
-                >
-                    Switch of Play
-                </button>
-
-                <button
-                    class="action-button"
-                    data-action="Penetrating Pass"
-                >
-                    Penetrating Pass
-                </button>
-
-                <button
-                    class="action-button"
-                    data-action="Progressive Carry"
-                >
-                    Progressive Carry
-                </button>
-
-            </div>
-
-            <div id="selected-action">
-                No action selected
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             OUTCOME
-             ========================= -->
-
-        <section
-            id="outcome-section"
-            class="hidden"
-        >
-
-            <h2>Outcome</h2>
-
-            <div class="outcome-buttons">
-
-                <button
-                    id="successful-button"
-                    class="outcome-button"
-                >
-                    Successful
-                </button>
-
-                <button
-                    id="unsuccessful-button"
-                    class="outcome-button"
-                >
-                    Unsuccessful
-                </button>
-
-            </div>
-
-            <div id="selected-outcome">
-                No outcome selected
-            </div>
-
-        </section>
-
-
-        <!-- =========================
-             SUCCESSFUL RESULT TAGS
-             ========================= -->
-
-        <section
-            id="result-section"
-            class="hidden"
-        >
-
-            <h2>Result</h2>
-
-            <p class="result-instruction">
-                Select all that apply.
-            </p>
-
-            <div class="result-buttons">
-
-                <button
-                    class="result-button"
-                    data-result="Broke a Line"
-                >
-                    Broke a Line
-                </button>
-
-                <button
-                    class="result-button"
-                    data-result="Attacking 3rd Entry"
-                >
-                    Attacking 3rd Entry
-                </button>
-
-                <button
-                    class="result-button"
-                    data-result="Box Entry"
-                >
-                    Box Entry
-                </button>
-
-                <button
-                    class="result-button"
-                    data-result="Shot"
-                >
-                    Shot
-                </button>
-
-            </div>
-
-            <div id="selected-results">
-                No results selected
-            </div>
-
-
-            <button
-                id="complete-event-button"
-                class="complete-button"
+                <h2>Primary Action</h2>
+
+                <div class="button-grid">
+
+                    <button
+                        class="action-button primary-action"
+                        data-action="3rd Man Run"
+                    >
+                        3rd Man Run
+                    </button>
+
+                    <button
+                        class="action-button primary-action"
+                        data-action="Switch of Play"
+                    >
+                        Switch of Play
+                    </button>
+
+                    <button
+                        class="action-button primary-action"
+                        data-action="Penetrating Pass"
+                    >
+                        Penetrating Pass
+                    </button>
+
+                    <button
+                        class="action-button primary-action"
+                        data-action="Progressive Carry"
+                    >
+                        Progressive Carry
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- OUTCOME -->
+
+            <section
+                id="outcome-section"
+                class="input-section hidden"
             >
-                Complete Event
-            </button>
 
-        </section>
+                <h2>Outcome</h2>
+
+                <div class="button-grid outcome-grid">
+
+                    <button
+                        class="action-button outcome-button"
+                        data-outcome="Successful"
+                    >
+                        Successful
+                    </button>
+
+                    <button
+                        class="action-button outcome-button"
+                        data-outcome="Unsuccessful"
+                    >
+                        Unsuccessful
+                    </button>
+
+                </div>
+
+            </section>
 
 
-        <!-- =========================
-             COMPLETE UNSUCCESSFUL EVENT
-             ========================= -->
+            <!-- RESULTS -->
 
-        <section
-            id="complete-unsuccessful-section"
-            class="hidden"
-        >
-
-            <button
-                id="complete-unsuccessful-button"
-                class="complete-button"
+            <section
+                id="result-section"
+                class="input-section hidden"
             >
-                Complete Event
-            </button>
 
-        </section>
+                <h2>Result</h2>
+
+                <p class="section-description">
+                    Select all that apply.
+                </p>
+
+                <div class="button-grid">
+
+                    <button
+                        class="action-button result-button"
+                        data-result="Broke a Line"
+                    >
+                        Broke a Line
+                    </button>
+
+                    <button
+                        class="action-button result-button"
+                        data-result="Attacking 3rd Entry"
+                    >
+                        Attacking 3rd Entry
+                    </button>
+
+                    <button
+                        class="action-button result-button"
+                        data-result="Box Entry"
+                    >
+                        Box Entry
+                    </button>
+
+                    <button
+                        class="action-button result-button"
+                        data-result="Shot"
+                    >
+                        Shot
+                    </button>
+
+                </div>
+
+            </section>
 
 
-        <!-- =========================
-             EVENT STATUS
-             ========================= -->
+            <!-- COMPLETE SUCCESSFUL EVENT -->
 
-        <div id="event-status">
-            0 events recorded
-        </div>
-
-
-        <!-- =========================
-             VIEW EVENTS
-             ========================= -->
-
-        <section id="events-section">
-
-            <button
-                id="view-events-button"
+            <section
+                id="complete-event-section"
+                class="complete-section hidden"
             >
-                View Events
-            </button>
 
+                <button
+                    id="complete-event-button"
+                    class="complete-button"
+                >
+                    Complete Event
+                </button>
+
+            </section>
+
+
+            <!-- COMPLETE UNSUCCESSFUL EVENT -->
+
+            <section
+                id="complete-unsuccessful-section"
+                class="complete-section hidden"
+            >
+
+                <button
+                    id="complete-unsuccessful-button"
+                    class="complete-button"
+                >
+                    Complete Event
+                </button>
+
+            </section>
+
+
+            <!-- EVENT STATUS -->
 
             <div
-                id="events-list"
-                class="hidden"
-            >
+                id="event-status"
+                class="event-status"
+            ></div>
+
+
+            <!-- EVENT CONTROLS -->
+
+            <section class="event-controls">
+
+                <div class="event-counter">
+                    Events Recorded:
+                    <strong id="event-counter">0</strong>
+                </div>
+
+                <button
+                    id="clear-current-event"
+                    class="secondary-button"
+                >
+                    Clear Current Event
+                </button>
+
+                <button
+                    id="view-events-button"
+                    class="secondary-button"
+                >
+                    View Events
+                </button>
+
+                <button
+                    id="view-heatmap-button"
+                    class="secondary-button"
+                >
+                    View Heatmap
+                </button>
+
+                <button
+                    id="clear-all-data-button"
+                    class="danger-button"
+                >
+                    Clear All Game Data
+                </button>
+
+            </section>
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- EVENTS VIEW -->
+        <!-- ========================= -->
+
+        <div
+            id="events-view"
+            class="hidden"
+        >
+
+            <div class="view-header">
 
                 <h2>Recorded Events</h2>
 
-                <div id="events-container">
-                    No events recorded.
+                <button
+                    id="back-to-data-button"
+                    class="secondary-button"
+                >
+                    Back to Data Collection
+                </button>
+
+            </div>
+
+            <div
+                id="events-list"
+                class="events-list"
+            ></div>
+
+        </div>
+
+
+        <!-- ========================= -->
+        <!-- HEATMAP VIEW -->
+        <!-- ========================= -->
+
+        <div
+            id="heatmap-view"
+            class="hidden"
+        >
+
+            <div class="view-header">
+
+                <h2>Event Heatmap</h2>
+
+                <button
+                    id="back-from-heatmap-button"
+                    class="secondary-button"
+                >
+                    Back to Data Collection
+                </button>
+
+            </div>
+
+
+            <section class="heatmap-controls">
+
+                <label for="heatmap-action-filter">
+                    Event Type
+                </label>
+
+                <select id="heatmap-action-filter">
+
+                    <option value="All Events">
+                        All Events
+                    </option>
+
+                    <option value="3rd Man Run">
+                        3rd Man Run
+                    </option>
+
+                    <option value="Switch of Play">
+                        Switch of Play
+                    </option>
+
+                    <option value="Penetrating Pass">
+                        Penetrating Pass
+                    </option>
+
+                    <option value="Progressive Carry">
+                        Progressive Carry
+                    </option>
+
+                </select>
+
+            </section>
+
+
+            <section class="heatmap-section">
+
+                <div class="pitch-container">
+
+                    <svg
+                        id="heatmap-pitch"
+                        viewBox="0 0 120 68"
+                        preserveAspectRatio="xMidYMid meet"
+                    >
+
+                        <!-- Background -->
+                        <rect
+                            x="0"
+                            y="0"
+                            width="120"
+                            height="68"
+                            class="pitch-background"
+                        />
+
+                        <!-- Outer boundary -->
+                        <rect
+                            x="0"
+                            y="0"
+                            width="120"
+                            height="68"
+                            class="pitch-line"
+                        />
+
+                        <!-- Halfway -->
+                        <line
+                            x1="60"
+                            y1="0"
+                            x2="60"
+                            y2="68"
+                            class="pitch-line"
+                        />
+
+                        <!-- Center circle -->
+                        <circle
+                            cx="60"
+                            cy="34"
+                            r="9.15"
+                            class="pitch-line"
+                        />
+
+                        <!-- Center spot -->
+                        <circle
+                            cx="60"
+                            cy="34"
+                            r="0.5"
+                            class="pitch-fill"
+                        />
+
+                        <!-- Left penalty area -->
+                        <rect
+                            x="0"
+                            y="13.84"
+                            width="18"
+                            height="40.32"
+                            class="pitch-line"
+                        />
+
+                        <!-- Left six-yard box -->
+                        <rect
+                            x="0"
+                            y="24.84"
+                            width="6"
+                            height="18.32"
+                            class="pitch-line"
+                        />
+
+                        <!-- Left penalty spot -->
+                        <circle
+                            cx="12"
+                            cy="34"
+                            r="0.5"
+                            class="pitch-fill"
+                        />
+
+                        <!-- Left penalty arc -->
+                        <path
+                            d="M 18 24.86
+                               A 9.15 9.15 0 0 1 18 43.14"
+                            class="pitch-line"
+                            fill="none"
+                        />
+
+                        <!-- Right penalty area -->
+                        <rect
+                            x="102"
+                            y="13.84"
+                            width="18"
+                            height="40.32"
+                            class="pitch-line"
+                        />
+
+                        <!-- Right six-yard box -->
+                        <rect
+                            x="114"
+                            y="24.84"
+                            width="6"
+                            height="18.32"
+                            class="pitch-line"
+                        />
+
+                        <!-- Right penalty spot -->
+                        <circle
+                            cx="108"
+                            cy="34"
+                            r="0.5"
+                            class="pitch-fill"
+                        />
+
+                        <!-- Right penalty arc -->
+                        <path
+                            d="M 102 24.86
+                               A 9.15 9.15 0 0 0 102 43.14"
+                            class="pitch-line"
+                            fill="none"
+                        />
+
+                        <!-- Heatmap points -->
+                        <g id="heatmap-points"></g>
+
+                    </svg>
+
                 </div>
 
-            </div>
-
-        </section>
+            </section>
 
 
-        <!-- =========================
-             HEATMAP BUTTON
-             ========================= -->
+            <div class="heatmap-information">
 
-        <section id="heatmap-controls">
-
-            <button
-                id="heatmap-button"
-            >
-                View Heatmap
-            </button>
-
-        </section>
-
-
-        <!-- =========================
-             CLEAR CURRENT EVENT
-             ========================= -->
-
-        <button id="clear-button">
-            Clear Current Event
-        </button>
-
-
-        <!-- =========================
-             CLEAR GAME DATA
-             ========================= -->
-
-        <button id="clear-game-button">
-            Clear All Game Data
-        </button>
-
-
-    </div>
-
-
-    <!-- ==================================================
-         HEATMAP VIEW
-         ================================================== -->
-
-    <div
-        id="heatmap-view"
-        class="hidden"
-    >
-
-        <h2>Event Heatmap</h2>
-
-        <p id="heatmap-description">
-            Spatial distribution of all recorded events.
-        </p>
-
-
-        <!-- =========================
-             HEATMAP FILTER
-             ========================= -->
-
-        <div id="heatmap-filter">
-
-            <label for="heatmap-action-filter">
-                Event Type:
-            </label>
-
-            <select id="heatmap-action-filter">
-
-                <option value="All Events">
-                    All Events
-                </option>
-
-                <option value="3rd Man Run">
-                    3rd Man Run
-                </option>
-
-                <option value="Switch of Play">
-                    Switch of Play
-                </option>
-
-                <option value="Penetrating Pass">
-                    Penetrating Pass
-                </option>
-
-                <option value="Progressive Carry">
-                    Progressive Carry
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <!-- =========================
-             HEATMAP PITCH
-             ========================= -->
-
-        <div class="heatmap-pitch-container">
-
-            <div class="goal-label">
-                OPPONENT GOAL
-            </div>
-
-
-            <div id="heatmap-pitch">
-
-                <svg
-                    id="heatmap-field"
-                    viewBox="0 0 120 68"
-                    preserveAspectRatio="none"
+                <div
+                    id="heatmap-event-count"
+                    class="heatmap-event-count"
                 >
+                    0 events
+                </div>
 
-                    <!-- Green field -->
-                    <rect
-                        x="0"
-                        y="0"
-                        width="120"
-                        height="68"
-                        class="pitch-background"
-                    />
-
-                    <!-- Outer boundary -->
-                    <rect
-                        x="0"
-                        y="0"
-                        width="120"
-                        height="68"
-                        class="line"
-                    />
-
-                    <!-- Center line -->
-                    <line
-                        x1="60"
-                        y1="0"
-                        x2="60"
-                        y2="68"
-                        class="line"
-                    />
-
-                    <!-- Center circle -->
-                    <circle
-                        cx="60"
-                        cy="34"
-                        r="10"
-                        class="line"
-                    />
-
-                    <circle
-                        cx="60"
-                        cy="34"
-                        r="0.5"
-                        class="spot"
-                    />
-
-
-                    <!-- Left penalty area -->
-
-                    <rect
-                        x="0"
-                        y="12"
-                        width="18"
-                        height="44"
-                        class="line"
-                    />
-
-                    <rect
-                        x="0"
-                        y="24"
-                        width="6"
-                        height="20"
-                        class="line"
-                    />
-
-                    <circle
-                        cx="12"
-                        cy="34"
-                        r="0.5"
-                        class="spot"
-                    />
-
-                    <path
-                        d="M 18 26
-                           A 10 10 0 0 1 18 42"
-                        class="line"
-                        fill="none"
-                    />
-
-
-                    <!-- Right penalty area -->
-
-                    <rect
-                        x="102"
-                        y="12"
-                        width="18"
-                        height="44"
-                        class="line"
-                    />
-
-                    <rect
-                        x="114"
-                        y="24"
-                        width="6"
-                        height="20"
-                        class="line"
-                    />
-
-                    <circle
-                        cx="108"
-                        cy="34"
-                        r="0.5"
-                        class="spot"
-                    />
-
-                    <path
-                        d="M 102 26
-                           A 10 10 0 0 0 102 42"
-                        class="line"
-                        fill="none"
-                    />
-
-
-                    <!-- Goals -->
-
-                    <rect
-                        x="-2"
-                        y="30.5"
-                        width="2"
-                        height="7"
-                        class="goal"
-                    />
-
-                    <rect
-                        x="120"
-                        y="30.5"
-                        width="2"
-                        height="7"
-                        class="goal"
-                    />
-
-
-                    <!-- Heatmap points -->
-
-                    <g id="heatmap-points"></g>
-
-                </svg>
+                <p
+                    id="heatmap-description"
+                    class="heatmap-description"
+                >
+                    Spatial distribution of all recorded events.
+                </p>
 
             </div>
 
 
-            <div class="goal-label">
-                OUR GOAL
+            <div class="heatmap-legend">
+
+                <span>Lower concentration</span>
+
+                <div class="gradient-bar"></div>
+
+                <span>Higher concentration</span>
+
             </div>
 
         </div>
-
-
-        <!-- =========================
-             HEATMAP LEGEND
-             ========================= -->
-
-        <div class="heatmap-legend">
-
-            <span>Lower activity</span>
-
-            <div class="heatmap-gradient"></div>
-
-            <span>Higher activity</span>
-
-        </div>
-
-
-        <div id="heatmap-event-count">
-            0 events
-        </div>
-
-
-        <!-- =========================
-             RETURN BUTTON
-             ========================= -->
-
-        <button
-            id="back-to-data-button"
-            class="back-button"
-        >
-            Back to Data Collection
-        </button>
 
     </div>
-
 
     <script src="script.js"></script>
 

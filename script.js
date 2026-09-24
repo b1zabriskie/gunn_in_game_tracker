@@ -1,58 +1,152 @@
-// ==================================================
-// PAGE ELEMENTS
-// ==================================================
+/* ========================= */
+/* STORAGE */
+/* ========================= */
 
-const pitch =
-    document.getElementById("pitch");
+const STORAGE_KEY =
+    "soccerDataCollectionEvents";
 
-const marker =
-    document.getElementById("marker");
 
-const coordinates =
-    document.getElementById("coordinates");
+let events =
+    JSON.parse(
+        localStorage.getItem(STORAGE_KEY)
+    ) || [];
 
-const clearButton =
-    document.getElementById("clear-button");
 
-const clearGameButton =
-    document.getElementById("clear-game-button");
+/* ========================= */
+/* CURRENT EVENT STATE */
+/* ========================= */
+
+let currentX = null;
+let currentY = null;
+
+let currentHalf = 1;
+let currentGameTime = null;
+
+let currentAction = null;
+let currentOutcome = null;
+
+let currentResults = [];
+
+
+/* ========================= */
+/* CLOCK STATE */
+/* ========================= */
+
+let clockRunning = false;
+
+let clockElapsedMilliseconds = 0;
+
+let clockStartedAt = null;
+
+let clockAnimationFrame = null;
+
+
+/* ========================= */
+/* DOM ELEMENTS */
+/* ========================= */
+
+/* Data collection */
+
+const soccerPitch =
+    document.getElementById(
+        "soccer-pitch"
+    );
+
+const locationMarker =
+    document.getElementById(
+        "location-marker"
+    );
+
+const locationDisplay =
+    document.getElementById(
+        "location-display"
+    );
+
+
+/* Clock */
+
+const gameClock =
+    document.getElementById(
+        "game-clock"
+    );
+
+const halfIndicator =
+    document.getElementById(
+        "half-indicator"
+    );
+
+const startClockButton =
+    document.getElementById(
+        "start-clock-button"
+    );
+
+const pauseClockButton =
+    document.getElementById(
+        "pause-clock-button"
+    );
+
+const startSecondHalfButton =
+    document.getElementById(
+        "start-second-half-button"
+    );
+
+const clockStatus =
+    document.getElementById(
+        "clock-status"
+    );
+
+
+/* Sections */
 
 const actionSection =
-    document.getElementById("action-section");
-
-const actionButtons =
-    document.querySelectorAll(".action-button");
-
-const selectedAction =
-    document.getElementById("selected-action");
+    document.getElementById(
+        "action-section"
+    );
 
 const outcomeSection =
-    document.getElementById("outcome-section");
-
-const successfulButton =
-    document.getElementById("successful-button");
-
-const unsuccessfulButton =
-    document.getElementById("unsuccessful-button");
-
-const selectedOutcome =
-    document.getElementById("selected-outcome");
+    document.getElementById(
+        "outcome-section"
+    );
 
 const resultSection =
-    document.getElementById("result-section");
+    document.getElementById(
+        "result-section"
+    );
 
-const resultButtons =
-    document.querySelectorAll(".result-button");
-
-const selectedResults =
-    document.getElementById("selected-results");
-
-const completeEventButton =
-    document.getElementById("complete-event-button");
+const completeEventSection =
+    document.getElementById(
+        "complete-event-section"
+    );
 
 const completeUnsuccessfulSection =
     document.getElementById(
         "complete-unsuccessful-section"
+    );
+
+
+/* Buttons */
+
+const primaryActionButtons =
+    document.querySelectorAll(
+        ".primary-action"
+    );
+
+const outcomeButtons =
+    document.querySelectorAll(
+        ".outcome-button"
+    );
+
+const resultButtons =
+    document.querySelectorAll(
+        ".result-button"
+    );
+
+
+/* Complete buttons */
+
+const completeEventButton =
+    document.getElementById(
+        "complete-event-button"
     );
 
 const completeUnsuccessfulButton =
@@ -60,39 +154,79 @@ const completeUnsuccessfulButton =
         "complete-unsuccessful-button"
     );
 
+
+/* Status */
+
 const eventStatus =
-    document.getElementById("event-status");
+    document.getElementById(
+        "event-status"
+    );
+
+
+/* Event controls */
+
+const eventCounter =
+    document.getElementById(
+        "event-counter"
+    );
+
+const clearCurrentEventButton =
+    document.getElementById(
+        "clear-current-event"
+    );
 
 const viewEventsButton =
     document.getElementById(
         "view-events-button"
     );
 
-const eventsList =
-    document.getElementById("events-list");
-
-const eventsContainer =
+const viewHeatmapButton =
     document.getElementById(
-        "events-container"
+        "view-heatmap-button"
+    );
+
+const clearAllDataButton =
+    document.getElementById(
+        "clear-all-data-button"
     );
 
 
-// ==================================================
-// HEATMAP ELEMENTS
-// ==================================================
+/* Views */
 
-const dataView =
-    document.getElementById("data-view");
+const dataCollectionView =
+    document.getElementById(
+        "data-collection-view"
+    );
+
+const eventsView =
+    document.getElementById(
+        "events-view"
+    );
 
 const heatmapView =
-    document.getElementById("heatmap-view");
+    document.getElementById(
+        "heatmap-view"
+    );
 
-const heatmapButton =
-    document.getElementById("heatmap-button");
+
+/* Events */
+
+const eventsList =
+    document.getElementById(
+        "events-list"
+    );
 
 const backToDataButton =
     document.getElementById(
         "back-to-data-button"
+    );
+
+
+/* Heatmap */
+
+const backFromHeatmapButton =
+    document.getElementById(
+        "back-from-heatmap-button"
     );
 
 const heatmapPoints =
@@ -100,14 +234,14 @@ const heatmapPoints =
         "heatmap-points"
     );
 
-const heatmapEventCount =
-    document.getElementById(
-        "heatmap-event-count"
-    );
-
 const heatmapActionFilter =
     document.getElementById(
         "heatmap-action-filter"
+    );
+
+const heatmapEventCount =
+    document.getElementById(
+        "heatmap-event-count"
     );
 
 const heatmapDescription =
@@ -116,78 +250,9 @@ const heatmapDescription =
     );
 
 
-// ==================================================
-// LOCAL STORAGE
-// ==================================================
-
-const STORAGE_KEY =
-    "soccerDataCollectionEvents";
-
-
-// ==================================================
-// CURRENT EVENT DATA
-// ==================================================
-
-let currentX = null;
-
-let currentY = null;
-
-let currentAction = null;
-
-let currentOutcome = null;
-
-let currentResults = [];
-
-
-// ==================================================
-// LOAD SAVED EVENTS
-// ==================================================
-
-let events = loadEvents();
-
-
-// ==================================================
-// LOAD EVENTS FROM LOCAL STORAGE
-// ==================================================
-
-function loadEvents() {
-
-    const savedEvents =
-        localStorage.getItem(
-            STORAGE_KEY
-        );
-
-
-    if (!savedEvents) {
-
-        return [];
-
-    }
-
-
-    try {
-
-        return JSON.parse(
-            savedEvents
-        );
-
-    } catch (error) {
-
-        console.error(
-            "Could not load saved events:",
-            error
-        );
-
-        return [];
-
-    }
-
-}
-
-
-// ==================================================
-// SAVE EVENTS TO LOCAL STORAGE
-// ==================================================
+/* ========================= */
+/* STORAGE FUNCTIONS */
+/* ========================= */
 
 function saveEvents() {
 
@@ -195,97 +260,321 @@ function saveEvents() {
         STORAGE_KEY,
         JSON.stringify(events)
     );
-
 }
 
-
-// ==================================================
-// UPDATE EVENT COUNTER
-// ==================================================
 
 function updateEventCounter() {
 
-    if (events.length === 1) {
-
-        eventStatus.textContent =
-            "1 event recorded";
-
-    } else {
-
-        eventStatus.textContent =
-            `${events.length} events recorded`;
-
-    }
-
+    eventCounter.textContent =
+        events.length;
 }
 
 
-// ==================================================
-// PITCH TAP
-// ==================================================
+/* ========================= */
+/* CLOCK FUNCTIONS */
+/* ========================= */
 
-pitch.addEventListener(
+function formatGameTime(milliseconds) {
+
+    const totalSeconds =
+        Math.floor(
+            milliseconds / 1000
+        );
+
+    const minutes =
+        Math.floor(
+            totalSeconds / 60
+        );
+
+    const seconds =
+        totalSeconds % 60;
+
+    return (
+        String(minutes).padStart(2, "0")
+        +
+        ":"
+        +
+        String(seconds).padStart(2, "0")
+    );
+}
+
+
+function updateClockDisplay() {
+
+    let elapsed =
+        clockElapsedMilliseconds;
+
+    if (
+        clockRunning &&
+        clockStartedAt !== null
+    ) {
+        elapsed +=
+            Date.now() -
+            clockStartedAt;
+    }
+
+    gameClock.textContent =
+        formatGameTime(elapsed);
+}
+
+
+function runClock() {
+
+    updateClockDisplay();
+
+    if (clockRunning) {
+
+        clockAnimationFrame =
+            requestAnimationFrame(
+                runClock
+            );
+    }
+}
+
+
+function startClock() {
+
+    if (clockRunning) {
+        return;
+    }
+
+    clockRunning = true;
+
+    clockStartedAt =
+        Date.now();
+
+    startClockButton.disabled =
+        true;
+
+    pauseClockButton.disabled =
+        false;
+
+    startSecondHalfButton.disabled =
+        true;
+
+    clockStatus.textContent =
+        "Clock running";
+
+    runClock();
+}
+
+
+function pauseClock() {
+
+    if (!clockRunning) {
+        return;
+    }
+
+    clockElapsedMilliseconds +=
+        Date.now() -
+        clockStartedAt;
+
+    clockStartedAt = null;
+
+    clockRunning = false;
+
+    if (
+        clockAnimationFrame !== null
+    ) {
+        cancelAnimationFrame(
+            clockAnimationFrame
+        );
+
+        clockAnimationFrame = null;
+    }
+
+    updateClockDisplay();
+
+    startClockButton.disabled =
+        false;
+
+    pauseClockButton.disabled =
+        true;
+
+    startSecondHalfButton.disabled =
+        false;
+
+    clockStatus.textContent =
+        "Clock stopped";
+}
+
+
+function startSecondHalf() {
+
+    /*
+     * Stop the current clock first.
+     */
+
+    if (clockRunning) {
+        pauseClock();
+    }
+
+    /*
+     * Reset the clock.
+     */
+
+    clockElapsedMilliseconds =
+        0;
+
+    clockStartedAt = null;
+
+    /*
+     * Change half.
+     */
+
+    currentHalf = 2;
+
+    halfIndicator.textContent =
+        "2nd Half";
+
+    /*
+     * Update display before starting.
+     */
+
+    updateClockDisplay();
+
+    /*
+     * Start second half.
+     */
+
+    startSecondHalfButton.disabled =
+        true;
+
+    startClock();
+}
+
+
+startClockButton.addEventListener(
+    "click",
+    startClock
+);
+
+
+pauseClockButton.addEventListener(
+    "click",
+    pauseClock
+);
+
+
+startSecondHalfButton.addEventListener(
+    "click",
+    startSecondHalf
+);
+
+
+/* ========================= */
+/* PITCH LOCATION */
+/* ========================= */
+
+soccerPitch.addEventListener(
     "pointerdown",
     function(event) {
 
-        const rectangle =
-            pitch.getBoundingClientRect();
+        /*
+         * Convert the browser pointer
+         * coordinates into SVG coordinates.
+         */
 
+        const svgPoint =
+            soccerPitch.createSVGPoint();
+
+        svgPoint.x =
+            event.clientX;
+
+        svgPoint.y =
+            event.clientY;
+
+        const svgCoordinates =
+            svgPoint.matrixTransform(
+                soccerPitch
+                    .getScreenCTM()
+                    .inverse()
+            );
 
         /*
-            Convert screen coordinates
-            into our 120 x 68 pitch.
-        */
-
-        const x =
-            ((event.clientX - rectangle.left)
-            / rectangle.width) * 120;
-
-        const y =
-            ((event.clientY - rectangle.top)
-            / rectangle.height) * 68;
-
-
-        /*
-            Store location.
-        */
+         * Keep the location inside
+         * the pitch boundaries.
+         */
 
         currentX =
-            Number(x.toFixed(2));
+            Math.max(
+                0,
+                Math.min(
+                    120,
+                    svgCoordinates.x
+                )
+            );
 
         currentY =
-            Number(y.toFixed(2));
+            Math.max(
+                0,
+                Math.min(
+                    68,
+                    svgCoordinates.y
+                )
+            );
 
 
         /*
-            Move location marker.
-        */
+         * IMPORTANT:
+         *
+         * Capture the game time immediately
+         * when the location is tapped.
+         *
+         * This means the event time represents
+         * the moment the action happened rather
+         * than the moment the user finishes
+         * entering the event.
+         */
 
-        marker.setAttribute(
+        let elapsed =
+            clockElapsedMilliseconds;
+
+        if (
+            clockRunning &&
+            clockStartedAt !== null
+        ) {
+            elapsed +=
+                Date.now() -
+                clockStartedAt;
+        }
+
+        currentGameTime =
+            formatGameTime(elapsed);
+
+
+        /*
+         * Move marker.
+         */
+
+        locationMarker.setAttribute(
             "cx",
-            x
+            currentX
         );
 
-        marker.setAttribute(
+        locationMarker.setAttribute(
             "cy",
-            y
+            currentY
         );
 
-        marker.style.visibility =
-            "visible";
+        locationMarker.setAttribute(
+            "visibility",
+            "visible"
+        );
 
 
         /*
-            Display coordinates.
-        */
+         * Display location and time.
+         */
 
-        coordinates.textContent =
-            `Pitch location: X = ${x.toFixed(1)}, Y = ${y.toFixed(1)}`;
+        locationDisplay.textContent =
+            `Pitch location: X = ${currentX.toFixed(1)}, Y = ${currentY.toFixed(1)} | ` +
+            `${currentHalf === 1 ? "1st" : "2nd"} Half ${currentGameTime}`;
 
 
         /*
-            Show Primary Action.
-        */
+         * Show primary action section.
+         */
 
         actionSection.classList.remove(
             "hidden"
@@ -293,333 +582,209 @@ pitch.addEventListener(
 
 
         /*
-            A new pitch location means
-            we're starting a new event.
-        */
+         * Clear any previous selections
+         * because this is a new event.
+         */
 
         currentAction = null;
+        currentOutcome = null;
+        currentResults = [];
 
-        selectedAction.textContent =
-            "No action selected";
-
-
-        actionButtons.forEach(
-            function(button) {
-
-                button.classList.remove(
-                    "selected"
-                );
-
-            }
-        );
-
-
-        /*
-            Reset Outcome.
-        */
+        clearButtonSelections();
 
         outcomeSection.classList.add(
             "hidden"
         );
 
-        currentOutcome = null;
-
-        selectedOutcome.textContent =
-            "No outcome selected";
-
-        successfulButton.classList.remove(
-            "selected"
-        );
-
-        unsuccessfulButton.classList.remove(
-            "selected"
-        );
-
-
-        /*
-            Reset Result Tags.
-        */
-
         resultSection.classList.add(
             "hidden"
         );
 
-        currentResults = [];
-
-        selectedResults.textContent =
-            "No results selected";
-
-
-        resultButtons.forEach(
-            function(resultButton) {
-
-                resultButton.classList.remove(
-                    "selected"
-                );
-
-            }
+        completeEventSection.classList.add(
+            "hidden"
         );
-
-
-        /*
-            Reset unsuccessful
-            completion section.
-        */
 
         completeUnsuccessfulSection.classList.add(
             "hidden"
         );
 
+        eventStatus.textContent = "";
     }
 );
 
 
-// ==================================================
-// PRIMARY ACTION SELECTION
-// ==================================================
+/* ========================= */
+/* PRIMARY ACTION */
+/* ========================= */
 
-actionButtons.forEach(
+primaryActionButtons.forEach(
     function(button) {
 
         button.addEventListener(
             "click",
             function() {
 
-                /*
-                    Store selected action.
-                */
+                primaryActionButtons
+                    .forEach(
+                        function(otherButton) {
 
-                currentAction =
-                    button.dataset.action;
-
-
-                /*
-                    Only one Primary Action
-                    can be selected.
-                */
-
-                actionButtons.forEach(
-                    function(otherButton) {
-
-                        otherButton.classList.remove(
-                            "selected"
-                        );
-
-                    }
-                );
-
-
-                /*
-                    Highlight selected action.
-                */
+                            otherButton.classList
+                                .remove(
+                                    "selected"
+                                );
+                        }
+                    );
 
                 button.classList.add(
                     "selected"
                 );
 
-
-                /*
-                    Display selected action.
-                */
-
-                selectedAction.textContent =
-                    `Selected: ${currentAction}`;
-
-
-                /*
-                    Show Outcome.
-                */
-
-                outcomeSection.classList.remove(
-                    "hidden"
-                );
-
-
-                /*
-                    Reset Outcome.
-                */
+                currentAction =
+                    button.dataset.action;
 
                 currentOutcome = null;
 
-                selectedOutcome.textContent =
-                    "No outcome selected";
+                currentResults = [];
 
-                successfulButton.classList.remove(
-                    "selected"
+                outcomeButtons.forEach(
+                    function(
+                        outcomeButton
+                    ) {
+
+                        outcomeButton.classList
+                            .remove(
+                                "selected"
+                            );
+                    }
                 );
 
-                unsuccessfulButton.classList.remove(
-                    "selected"
+                resultButtons.forEach(
+                    function(
+                        resultButton
+                    ) {
+
+                        resultButton.classList
+                            .remove(
+                                "selected"
+                            );
+                    }
                 );
 
-
-                /*
-                    Hide Result Tags.
-                */
+                outcomeSection.classList
+                    .remove(
+                        "hidden"
+                    );
 
                 resultSection.classList.add(
                     "hidden"
                 );
 
-                completeUnsuccessfulSection.classList.add(
-                    "hidden"
+                completeEventSection.classList
+                    .add(
+                        "hidden"
+                    );
+
+                completeUnsuccessfulSection.classList
+                    .add(
+                        "hidden"
+                    );
+
+                eventStatus.textContent = "";
+            }
+        );
+    }
+);
+
+
+/* ========================= */
+/* OUTCOME */
+/* ========================= */
+
+outcomeButtons.forEach(
+    function(button) {
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                outcomeButtons.forEach(
+                    function(otherButton) {
+
+                        otherButton.classList
+                            .remove(
+                                "selected"
+                            );
+                    }
                 );
 
+                button.classList.add(
+                    "selected"
+                );
+
+                currentOutcome =
+                    button.dataset.outcome;
+
                 currentResults = [];
-
-                selectedResults.textContent =
-                    "No results selected";
-
 
                 resultButtons.forEach(
                     function(resultButton) {
 
-                        resultButton.classList.remove(
-                            "selected"
-                        );
-
+                        resultButton.classList
+                            .remove(
+                                "selected"
+                            );
                     }
                 );
 
+
+                if (
+                    currentOutcome ===
+                    "Successful"
+                ) {
+
+                    resultSection.classList
+                        .remove(
+                            "hidden"
+                        );
+
+                    completeEventSection.classList
+                        .remove(
+                            "hidden"
+                        );
+
+                    completeUnsuccessfulSection.classList
+                        .add(
+                            "hidden"
+                        );
+
+                } else {
+
+                    resultSection.classList
+                        .add(
+                            "hidden"
+                        );
+
+                    completeEventSection.classList
+                        .add(
+                            "hidden"
+                        );
+
+                    completeUnsuccessfulSection.classList
+                        .remove(
+                            "hidden"
+                        );
+                }
+
+                eventStatus.textContent = "";
             }
         );
-
     }
 );
 
 
-// ==================================================
-// SUCCESSFUL
-// ==================================================
-
-successfulButton.addEventListener(
-    "click",
-    function() {
-
-        currentOutcome =
-            "Successful";
-
-
-        /*
-            Highlight Successful.
-        */
-
-        successfulButton.classList.add(
-            "selected"
-        );
-
-        unsuccessfulButton.classList.remove(
-            "selected"
-        );
-
-
-        /*
-            Display outcome.
-        */
-
-        selectedOutcome.textContent =
-            "Selected: Successful";
-
-
-        /*
-            Show Result Tags.
-        */
-
-        resultSection.classList.remove(
-            "hidden"
-        );
-
-
-        /*
-            Hide unsuccessful completion.
-        */
-
-        completeUnsuccessfulSection.classList.add(
-            "hidden"
-        );
-
-    }
-);
-
-
-// ==================================================
-// UNSUCCESSFUL
-// ==================================================
-
-unsuccessfulButton.addEventListener(
-    "click",
-    function() {
-
-        currentOutcome =
-            "Unsuccessful";
-
-
-        /*
-            Highlight Unsuccessful.
-        */
-
-        unsuccessfulButton.classList.add(
-            "selected"
-        );
-
-        successfulButton.classList.remove(
-            "selected"
-        );
-
-
-        /*
-            Display outcome.
-        */
-
-        selectedOutcome.textContent =
-            "Selected: Unsuccessful";
-
-
-        /*
-            Hide Result Tags.
-        */
-
-        resultSection.classList.add(
-            "hidden"
-        );
-
-
-        /*
-            Clear previous results.
-        */
-
-        currentResults = [];
-
-        selectedResults.textContent =
-            "No results selected";
-
-
-        resultButtons.forEach(
-            function(button) {
-
-                button.classList.remove(
-                    "selected"
-                );
-
-            }
-        );
-
-
-        /*
-            Show completion button.
-        */
-
-        completeUnsuccessfulSection.classList.remove(
-            "hidden"
-        );
-
-    }
-);
-
-
-// ==================================================
-// RESULT TAGS
-// ==================================================
+/* ========================= */
+/* RESULTS */
+/* ========================= */
 
 resultButtons.forEach(
     function(button) {
@@ -631,23 +796,32 @@ resultButtons.forEach(
                 const result =
                     button.dataset.result;
 
-
                 /*
-                    Check whether result
-                    is already selected.
-                */
+                 * Results are multi-select.
+                 */
 
-                const index =
-                    currentResults.indexOf(
+                if (
+                    currentResults.includes(
                         result
+                    )
+                ) {
+
+                    currentResults =
+                        currentResults.filter(
+                            function(item) {
+
+                                return (
+                                    item !==
+                                    result
+                                );
+                            }
+                        );
+
+                    button.classList.remove(
+                        "selected"
                     );
 
-
-                if (index === -1) {
-
-                    /*
-                        Add result.
-                    */
+                } else {
 
                     currentResults.push(
                         result
@@ -656,131 +830,113 @@ resultButtons.forEach(
                     button.classList.add(
                         "selected"
                     );
-
-                } else {
-
-                    /*
-                        Remove result.
-                    */
-
-                    currentResults.splice(
-                        index,
-                        1
-                    );
-
-                    button.classList.remove(
-                        "selected"
-                    );
-
                 }
-
-
-                /*
-                    Update text.
-                */
-
-                if (
-                    currentResults.length === 0
-                ) {
-
-                    selectedResults.textContent =
-                        "No results selected";
-
-                } else {
-
-                    selectedResults.textContent =
-                        `Selected: ${currentResults.join(", ")}`;
-
-                }
-
             }
         );
-
     }
 );
 
 
-// ==================================================
-// COMPLETE SUCCESSFUL EVENT
-// ==================================================
-
-completeEventButton.addEventListener(
-    "click",
-    function() {
-
-        recordEvent();
-
-    }
-);
-
-
-// ==================================================
-// COMPLETE UNSUCCESSFUL EVENT
-// ==================================================
-
-completeUnsuccessfulButton.addEventListener(
-    "click",
-    function() {
-
-        recordEvent();
-
-    }
-);
-
-
-// ==================================================
-// RECORD EVENT
-// ==================================================
+/* ========================= */
+/* RECORD EVENT */
+/* ========================= */
 
 function recordEvent() {
 
     /*
-        Make sure required information exists.
-    */
+     * Basic validation.
+     */
 
     if (
         currentX === null ||
-        currentY === null ||
-        currentAction === null ||
-        currentOutcome === null
+        currentY === null
     ) {
 
-        alert(
-            "Please select a location, action, and outcome before completing the event."
-        );
+        eventStatus.textContent =
+            "Please select a location on the pitch.";
 
         return;
+    }
 
+    if (!currentAction) {
+
+        eventStatus.textContent =
+            "Please select a primary action.";
+
+        return;
+    }
+
+    if (!currentOutcome) {
+
+        eventStatus.textContent =
+            "Please select an outcome.";
+
+        return;
+    }
+
+    if (
+        currentOutcome ===
+        "Successful" &&
+        currentResults.length === 0
+    ) {
+
+        eventStatus.textContent =
+            "Please select at least one result.";
+
+        return;
     }
 
 
     /*
-        Create event object.
-    */
+     * Create event object.
+     */
 
     const newEvent = {
 
-        id: Date.now(),
+        id:
+            Date.now(),
 
         timestamp:
             new Date().toISOString(),
 
-        x: currentX,
+        /*
+         * Match information
+         */
 
-        y: currentY,
+        half:
+            currentHalf,
 
-        action: currentAction,
+        gameTime:
+            currentGameTime,
 
-        outcome: currentOutcome,
+        /*
+         * Location
+         */
 
-        results: [...currentResults]
+        x:
+            currentX,
 
+        y:
+            currentY,
+
+        /*
+         * Event information
+         */
+
+        action:
+            currentAction,
+
+        outcome:
+            currentOutcome,
+
+        results:
+            [...currentResults]
     };
 
 
     /*
-        Add event.
-    */
+     * Add to event list.
+     */
 
     events.push(
         newEvent
@@ -788,79 +944,91 @@ function recordEvent() {
 
 
     /*
-        Save to localStorage.
-    */
+     * Save to localStorage.
+     */
 
     saveEvents();
 
 
     /*
-        Update counter.
-    */
+     * Update counter.
+     */
 
     updateEventCounter();
 
 
     /*
-        Show confirmation.
-    */
+     * Display confirmation.
+     */
 
     eventStatus.textContent =
-        `Event recorded! ${events.length} total events`;
+        `Event recorded at ` +
+        `${currentHalf === 1 ? "1st" : "2nd"} Half ` +
+        `${currentGameTime}.`;
 
 
     /*
-        Reset current event.
-    */
+     * Reset current event.
+     */
 
     resetCurrentEvent();
-
-
-    /*
-        Restore normal counter.
-    */
-
-    setTimeout(
-        function() {
-
-            updateEventCounter();
-
-        },
-        1500
-    );
-
 }
 
 
-// ==================================================
-// RESET CURRENT EVENT
-// ==================================================
+/* ========================= */
+/* COMPLETE BUTTONS */
+/* ========================= */
+
+completeEventButton.addEventListener(
+    "click",
+    recordEvent
+);
+
+
+completeUnsuccessfulButton.addEventListener(
+    "click",
+    recordEvent
+);
+
+
+/* ========================= */
+/* RESET CURRENT EVENT */
+/* ========================= */
 
 function resetCurrentEvent() {
 
-    /*
-        Hide marker.
-    */
-
-    marker.style.visibility =
-        "hidden";
-
-
-    /*
-        Reset location.
-    */
-
     currentX = null;
-
     currentY = null;
 
-    coordinates.textContent =
-        "No location selected";
+    currentGameTime = null;
+
+    currentAction = null;
+    currentOutcome = null;
+
+    currentResults = [];
 
 
     /*
-        Hide workflow sections.
-    */
+     * Hide marker.
+     */
+
+    locationMarker.setAttribute(
+        "visibility",
+        "hidden"
+    );
+
+
+    /*
+     * Reset location display.
+     */
+
+    locationDisplay.textContent =
+        "Tap the pitch to select a location.";
+
+
+    /*
+     * Hide sections.
+     */
 
     actionSection.classList.add(
         "hidden"
@@ -874,53 +1042,42 @@ function resetCurrentEvent() {
         "hidden"
     );
 
+    completeEventSection.classList.add(
+        "hidden"
+    );
+
     completeUnsuccessfulSection.classList.add(
         "hidden"
     );
 
 
     /*
-        Reset stored selections.
-    */
+     * Clear button selections.
+     */
 
-    currentAction = null;
-
-    currentOutcome = null;
-
-    currentResults = [];
+    clearButtonSelections();
+}
 
 
-    /*
-        Reset Primary Action buttons.
-    */
+function clearButtonSelections() {
 
-    actionButtons.forEach(
+    primaryActionButtons.forEach(
         function(button) {
 
             button.classList.remove(
                 "selected"
             );
-
         }
     );
 
+    outcomeButtons.forEach(
+        function(button) {
 
-    /*
-        Reset Outcome buttons.
-    */
-
-    successfulButton.classList.remove(
-        "selected"
+            button.classList.remove(
+                "selected"
+            );
+        }
     );
-
-    unsuccessfulButton.classList.remove(
-        "selected"
-    );
-
-
-    /*
-        Reset Result buttons.
-    */
 
     resultButtons.forEach(
         function(button) {
@@ -928,342 +1085,309 @@ function resetCurrentEvent() {
             button.classList.remove(
                 "selected"
             );
-
         }
     );
-
-
-    /*
-        Reset status text.
-    */
-
-    selectedAction.textContent =
-        "No action selected";
-
-    selectedOutcome.textContent =
-        "No outcome selected";
-
-    selectedResults.textContent =
-        "No results selected";
-
 }
 
 
-// ==================================================
-// CLEAR CURRENT EVENT
-// ==================================================
-
-clearButton.addEventListener(
+clearCurrentEventButton.addEventListener(
     "click",
     function() {
 
         resetCurrentEvent();
 
+        eventStatus.textContent =
+            "Current event cleared.";
     }
 );
 
 
-// ==================================================
-// VIEW EVENTS
-// ==================================================
+/* ========================= */
+/* EVENTS VIEW */
+/* ========================= */
 
 viewEventsButton.addEventListener(
     "click",
     function() {
 
-        eventsList.classList.toggle(
-            "hidden"
-        );
+        dataCollectionView.classList
+            .add("hidden");
 
+        heatmapView.classList
+            .add("hidden");
 
-        if (
-            eventsList.classList.contains(
-                "hidden"
-            )
-        ) {
-
-            viewEventsButton.textContent =
-                "View Events";
-
-        } else {
-
-            viewEventsButton.textContent =
-                "Hide Events";
-
-            displayEvents();
-
-        }
-
-    }
-);
-
-
-// ==================================================
-// DISPLAY EVENTS
-// ==================================================
-
-function displayEvents() {
-
-    /*
-        No events.
-    */
-
-    if (events.length === 0) {
-
-        eventsContainer.innerHTML =
-            "<p>No events recorded.</p>";
-
-        return;
-
-    }
-
-
-    /*
-        Create event cards.
-    */
-
-    eventsContainer.innerHTML =
-        events.map(
-            function(event, index) {
-
-                const resultsText =
-                    event.results.length > 0
-                        ? event.results.join(", ")
-                        : "None";
-
-
-                return `
-                    <div class="event-card">
-
-                        <p>
-                            <strong>Event ${index + 1}</strong>
-                        </p>
-
-                        <p>
-                            <strong>Location:</strong>
-                            X = ${event.x},
-                            Y = ${event.y}
-                        </p>
-
-                        <p>
-                            <strong>Action:</strong>
-                            ${event.action}
-                        </p>
-
-                        <p>
-                            <strong>Outcome:</strong>
-                            ${event.outcome}
-                        </p>
-
-                        <p>
-                            <strong>Results:</strong>
-                            ${resultsText}
-                        </p>
-
-                    </div>
-                `;
-
-            }
-        ).join("");
-
-}
-
-
-// ==================================================
-// CLEAR ALL GAME DATA
-// ==================================================
-
-clearGameButton.addEventListener(
-    "click",
-    function() {
-
-        const confirmed =
-            confirm(
-                "Are you sure you want to delete all recorded events?"
-            );
-
-
-        if (!confirmed) {
-
-            return;
-
-        }
-
-
-        /*
-            Empty event array.
-        */
-
-        events = [];
-
-
-        /*
-            Remove localStorage data.
-        */
-
-        localStorage.removeItem(
-            STORAGE_KEY
-        );
-
-
-        /*
-            Update counter.
-        */
-
-        updateEventCounter();
-
-
-        /*
-            Refresh event list.
-        */
+        eventsView.classList
+            .remove("hidden");
 
         displayEvents();
-
-
-        /*
-            Refresh heatmap if needed.
-        */
-
-        drawHeatmap();
-
     }
 );
 
-
-// ==================================================
-// SHOW HEATMAP
-// ==================================================
-
-heatmapButton.addEventListener(
-    "click",
-    function() {
-
-        /*
-            Draw current heatmap.
-        */
-
-        drawHeatmap();
-
-
-        /*
-            Hide data collection.
-        */
-
-        dataView.classList.add(
-            "hidden"
-        );
-
-
-        /*
-            Show heatmap.
-        */
-
-        heatmapView.classList.remove(
-            "hidden"
-        );
-
-
-        /*
-            Update instruction.
-        */
-
-        document.getElementById(
-            "page-instruction"
-        ).textContent =
-            "Spatial distribution of recorded events.";
-
-    }
-);
-
-
-// ==================================================
-// RETURN TO DATA COLLECTION
-// ==================================================
 
 backToDataButton.addEventListener(
     "click",
     function() {
 
-        /*
-            Hide heatmap.
-        */
+        eventsView.classList
+            .add("hidden");
 
-        heatmapView.classList.add(
-            "hidden"
-        );
+        heatmapView.classList
+            .add("hidden");
 
-
-        /*
-            Show data collection.
-        */
-
-        dataView.classList.remove(
-            "hidden"
-        );
-
-
-        /*
-            Restore instruction.
-        */
-
-        document.getElementById(
-            "page-instruction"
-        ).textContent =
-            "Tap the location where the action started.";
-
+        dataCollectionView.classList
+            .remove("hidden");
     }
 );
 
 
-// ==================================================
-// HEATMAP FILTER
-// ==================================================
+/* ========================= */
+/* DISPLAY EVENTS */
+/* ========================= */
+
+function displayEvents() {
+
+    eventsList.innerHTML = "";
+
+
+    if (events.length === 0) {
+
+        eventsList.innerHTML =
+            "<p>No events recorded yet.</p>";
+
+        return;
+    }
+
+
+    /*
+     * Display newest events first.
+     */
+
+    const reversedEvents =
+        [...events].reverse();
+
+
+    reversedEvents.forEach(
+        function(event) {
+
+            const card =
+                document.createElement(
+                    "div"
+                );
+
+            card.classList.add(
+                "event-card"
+            );
+
+
+            if (
+                event.outcome ===
+                "Successful"
+            ) {
+
+                card.classList.add(
+                    "successful"
+                );
+
+            } else {
+
+                card.classList.add(
+                    "unsuccessful"
+                );
+            }
+
+
+            /*
+             * Handle old events that were
+             * recorded before the clock existed.
+             */
+
+            let timeText =
+                "Time not recorded";
+
+            if (
+                event.gameTime &&
+                event.half
+            ) {
+
+                const halfText =
+                    event.half === 1
+                        ? "1st Half"
+                        : "2nd Half";
+
+                timeText =
+                    `${halfText} — ${event.gameTime}`;
+            }
+
+
+            /*
+             * Results.
+             */
+
+            let resultsHTML =
+                "";
+
+            if (
+                event.results &&
+                event.results.length > 0
+            ) {
+
+                resultsHTML =
+                    event.results
+                        .map(
+                            function(result) {
+
+                                return `
+                                    <span class="result-tag">
+                                        ${result}
+                                    </span>
+                                `;
+                            }
+                        )
+                        .join("");
+            } else {
+
+                resultsHTML =
+                    "None";
+            }
+
+
+            card.innerHTML = `
+
+                <h3>
+                    ${event.action}
+                </h3>
+
+                <p>
+                    <strong>Time:</strong>
+                    ${timeText}
+                </p>
+
+                <p>
+                    <strong>Outcome:</strong>
+                    ${event.outcome}
+                </p>
+
+                <p>
+                    <strong>Location:</strong>
+                    X = ${Number(event.x).toFixed(1)},
+                    Y = ${Number(event.y).toFixed(1)}
+                </p>
+
+                <p>
+                    <strong>Results:</strong>
+                    ${resultsHTML}
+                </p>
+
+            `;
+
+
+            eventsList.appendChild(
+                card
+            );
+        }
+    );
+}
+
+
+/* ========================= */
+/* CLEAR ALL GAME DATA */
+/* ========================= */
+
+clearAllDataButton.addEventListener(
+    "click",
+    function() {
+
+        const confirmed =
+            confirm(
+                "Are you sure you want to delete all recorded game data?"
+            );
+
+        if (!confirmed) {
+            return;
+        }
+
+
+        events = [];
+
+        saveEvents();
+
+        updateEventCounter();
+
+        resetCurrentEvent();
+
+        eventStatus.textContent =
+            "All game data has been cleared.";
+    }
+);
+
+
+/* ========================= */
+/* HEATMAP VIEW */
+/* ========================= */
+
+viewHeatmapButton.addEventListener(
+    "click",
+    function() {
+
+        dataCollectionView.classList
+            .add("hidden");
+
+        eventsView.classList
+            .add("hidden");
+
+        heatmapView.classList
+            .remove("hidden");
+
+        drawHeatmap();
+    }
+);
+
+
+backFromHeatmapButton.addEventListener(
+    "click",
+    function() {
+
+        heatmapView.classList
+            .add("hidden");
+
+        eventsView.classList
+            .add("hidden");
+
+        dataCollectionView.classList
+            .remove("hidden");
+    }
+);
+
+
+/* ========================= */
+/* HEATMAP FILTER */
+/* ========================= */
 
 heatmapActionFilter.addEventListener(
     "change",
-    function() {
-
-        /*
-            Redraw the heatmap using
-            the selected event type.
-        */
-
-        drawHeatmap();
-
-    }
+    drawHeatmap
 );
 
 
-// ==================================================
-// DRAW HEATMAP
-// ==================================================
+/* ========================= */
+/* DRAW HEATMAP */
+/* ========================= */
 
 function drawHeatmap() {
 
-    /*
-        Remove previous heatmap points.
-    */
-
     heatmapPoints.innerHTML = "";
 
-
-    /*
-        Determine selected filter.
-    */
 
     const selectedAction =
         heatmapActionFilter.value;
 
 
-    /*
-        Filter events.
-    */
-
     let filteredEvents;
 
 
     if (
-        selectedAction === "All Events"
+        selectedAction ===
+        "All Events"
     ) {
 
         filteredEvents =
@@ -1279,18 +1403,18 @@ function drawHeatmap() {
                         event.action ===
                         selectedAction
                     );
-
                 }
             );
-
     }
 
 
     /*
-        Update event count.
-    */
+     * Event count.
+     */
 
-    if (filteredEvents.length === 1) {
+    if (
+        filteredEvents.length === 1
+    ) {
 
         heatmapEventCount.textContent =
             "1 event";
@@ -1299,16 +1423,16 @@ function drawHeatmap() {
 
         heatmapEventCount.textContent =
             `${filteredEvents.length} events`;
-
     }
 
 
     /*
-        Update description.
-    */
+     * Description.
+     */
 
     if (
-        selectedAction === "All Events"
+        selectedAction ===
+        "All Events"
     ) {
 
         heatmapDescription.textContent =
@@ -1318,25 +1442,24 @@ function drawHeatmap() {
 
         heatmapDescription.textContent =
             `Spatial distribution of ${selectedAction} events.`;
-
     }
 
 
     /*
-        Nothing to draw.
-    */
+     * Nothing to draw.
+     */
 
-    if (filteredEvents.length === 0) {
+    if (
+        filteredEvents.length === 0
+    ) {
 
         return;
-
     }
 
 
     /*
-        Create one heatmap point
-        for every filtered event.
-    */
+     * Draw event circles.
+     */
 
     filteredEvents.forEach(
         function(event) {
@@ -1348,11 +1471,6 @@ function drawHeatmap() {
                 );
 
 
-            /*
-                Position the point using
-                our 120 x 68 pitch coordinates.
-            */
-
             circle.setAttribute(
                 "cx",
                 event.x
@@ -1362,12 +1480,6 @@ function drawHeatmap() {
                 "cy",
                 event.y
             );
-
-
-            /*
-                Radius determines how much
-                surrounding area the event affects.
-            */
 
             circle.setAttribute(
                 "r",
@@ -1381,9 +1493,9 @@ function drawHeatmap() {
 
 
             /*
-                Transparency allows overlapping
-                events to create stronger areas.
-            */
+             * Low opacity allows overlapping
+             * points to become darker.
+             */
 
             circle.style.opacity =
                 "0.18";
@@ -1392,15 +1504,18 @@ function drawHeatmap() {
             heatmapPoints.appendChild(
                 circle
             );
-
         }
     );
-
 }
 
 
-// ==================================================
-// INITIAL PAGE SETUP
-// ==================================================
+/* ========================= */
+/* INITIALIZATION */
+/* ========================= */
 
 updateEventCounter();
+
+updateClockDisplay();
+
+pauseClockButton.disabled =
+    true;
