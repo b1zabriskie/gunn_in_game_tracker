@@ -1,10 +1,18 @@
-const pitch = document.getElementById("pitch");
+// ==================================================
+// PAGE ELEMENTS
+// ==================================================
 
-const marker = document.getElementById("marker");
+const pitch =
+    document.getElementById("pitch");
 
-const coordinates = document.getElementById("coordinates");
+const marker =
+    document.getElementById("marker");
 
-const clearButton = document.getElementById("clear-button");
+const coordinates =
+    document.getElementById("coordinates");
+
+const clearButton =
+    document.getElementById("clear-button");
 
 const clearGameButton =
     document.getElementById("clear-game-button");
@@ -43,27 +51,35 @@ const completeEventButton =
     document.getElementById("complete-event-button");
 
 const completeUnsuccessfulSection =
-    document.getElementById("complete-unsuccessful-section");
+    document.getElementById(
+        "complete-unsuccessful-section"
+    );
 
 const completeUnsuccessfulButton =
-    document.getElementById("complete-unsuccessful-button");
+    document.getElementById(
+        "complete-unsuccessful-button"
+    );
 
 const eventStatus =
     document.getElementById("event-status");
 
 const viewEventsButton =
-    document.getElementById("view-events-button");
+    document.getElementById(
+        "view-events-button"
+    );
 
 const eventsList =
     document.getElementById("events-list");
 
 const eventsContainer =
-    document.getElementById("events-container");
+    document.getElementById(
+        "events-container"
+    );
 
 
-// ==========================================
+// ==================================================
 // HEATMAP ELEMENTS
-// ==========================================
+// ==================================================
 
 const dataView =
     document.getElementById("data-view");
@@ -75,26 +91,42 @@ const heatmapButton =
     document.getElementById("heatmap-button");
 
 const backToDataButton =
-    document.getElementById("back-to-data-button");
+    document.getElementById(
+        "back-to-data-button"
+    );
 
 const heatmapPoints =
-    document.getElementById("heatmap-points");
+    document.getElementById(
+        "heatmap-points"
+    );
 
 const heatmapEventCount =
-    document.getElementById("heatmap-event-count");
+    document.getElementById(
+        "heatmap-event-count"
+    );
+
+const heatmapActionFilter =
+    document.getElementById(
+        "heatmap-action-filter"
+    );
+
+const heatmapDescription =
+    document.getElementById(
+        "heatmap-description"
+    );
 
 
-// ==========================================
+// ==================================================
 // LOCAL STORAGE
-// ==========================================
+// ==================================================
 
 const STORAGE_KEY =
     "soccerDataCollectionEvents";
 
 
-// ==========================================
+// ==================================================
 // CURRENT EVENT DATA
-// ==========================================
+// ==================================================
 
 let currentX = null;
 
@@ -107,21 +139,23 @@ let currentOutcome = null;
 let currentResults = [];
 
 
-// ==========================================
+// ==================================================
 // LOAD SAVED EVENTS
-// ==========================================
+// ==================================================
 
 let events = loadEvents();
 
 
-// ==========================================
+// ==================================================
 // LOAD EVENTS FROM LOCAL STORAGE
-// ==========================================
+// ==================================================
 
 function loadEvents() {
 
     const savedEvents =
-        localStorage.getItem(STORAGE_KEY);
+        localStorage.getItem(
+            STORAGE_KEY
+        );
 
 
     if (!savedEvents) {
@@ -133,7 +167,9 @@ function loadEvents() {
 
     try {
 
-        return JSON.parse(savedEvents);
+        return JSON.parse(
+            savedEvents
+        );
 
     } catch (error) {
 
@@ -149,9 +185,9 @@ function loadEvents() {
 }
 
 
-// ==========================================
+// ==================================================
 // SAVE EVENTS TO LOCAL STORAGE
-// ==========================================
+// ==================================================
 
 function saveEvents() {
 
@@ -163,9 +199,9 @@ function saveEvents() {
 }
 
 
-// ==========================================
+// ==================================================
 // UPDATE EVENT COUNTER
-// ==========================================
+// ==================================================
 
 function updateEventCounter() {
 
@@ -184,9 +220,9 @@ function updateEventCounter() {
 }
 
 
-// ==========================================
+// ==================================================
 // PITCH TAP
-// ==========================================
+// ==================================================
 
 pitch.addEventListener(
     "pointerdown",
@@ -313,6 +349,7 @@ pitch.addEventListener(
         selectedResults.textContent =
             "No results selected";
 
+
         resultButtons.forEach(
             function(resultButton) {
 
@@ -337,9 +374,9 @@ pitch.addEventListener(
 );
 
 
-// ==========================================
+// ==================================================
 // PRIMARY ACTION SELECTION
-// ==========================================
+// ==================================================
 
 actionButtons.forEach(
     function(button) {
@@ -433,6 +470,7 @@ actionButtons.forEach(
                 selectedResults.textContent =
                     "No results selected";
 
+
                 resultButtons.forEach(
                     function(resultButton) {
 
@@ -450,9 +488,9 @@ actionButtons.forEach(
 );
 
 
-// ==========================================
+// ==================================================
 // SUCCESSFUL
-// ==========================================
+// ==================================================
 
 successfulButton.addEventListener(
     "click",
@@ -504,9 +542,9 @@ successfulButton.addEventListener(
 );
 
 
-// ==========================================
+// ==================================================
 // UNSUCCESSFUL
-// ==========================================
+// ==================================================
 
 unsuccessfulButton.addEventListener(
     "click",
@@ -555,6 +593,7 @@ unsuccessfulButton.addEventListener(
         selectedResults.textContent =
             "No results selected";
 
+
         resultButtons.forEach(
             function(button) {
 
@@ -578,9 +617,9 @@ unsuccessfulButton.addEventListener(
 );
 
 
-// ==========================================
+// ==================================================
 // RESULT TAGS
-// ==========================================
+// ==================================================
 
 resultButtons.forEach(
     function(button) {
@@ -594,7 +633,7 @@ resultButtons.forEach(
 
 
                 /*
-                    Check whether this result
+                    Check whether result
                     is already selected.
                 */
 
@@ -607,9 +646,7 @@ resultButtons.forEach(
                 if (index === -1) {
 
                     /*
-                        Result is NOT selected.
-
-                        Add it.
+                        Add result.
                     */
 
                     currentResults.push(
@@ -623,9 +660,7 @@ resultButtons.forEach(
                 } else {
 
                     /*
-                        Result IS selected.
-
-                        Remove it.
+                        Remove result.
                     */
 
                     currentResults.splice(
@@ -665,9 +700,9 @@ resultButtons.forEach(
 );
 
 
-// ==========================================
+// ==================================================
 // COMPLETE SUCCESSFUL EVENT
-// ==========================================
+// ==================================================
 
 completeEventButton.addEventListener(
     "click",
@@ -679,9 +714,9 @@ completeEventButton.addEventListener(
 );
 
 
-// ==========================================
+// ==================================================
 // COMPLETE UNSUCCESSFUL EVENT
-// ==========================================
+// ==================================================
 
 completeUnsuccessfulButton.addEventListener(
     "click",
@@ -693,9 +728,9 @@ completeUnsuccessfulButton.addEventListener(
 );
 
 
-// ==========================================
+// ==================================================
 // RECORD EVENT
-// ==========================================
+// ==================================================
 
 function recordEvent() {
 
@@ -767,7 +802,7 @@ function recordEvent() {
 
 
     /*
-        Confirmation.
+        Show confirmation.
     */
 
     eventStatus.textContent =
@@ -797,9 +832,9 @@ function recordEvent() {
 }
 
 
-// ==========================================
+// ==================================================
 // RESET CURRENT EVENT
-// ==========================================
+// ==================================================
 
 function resetCurrentEvent() {
 
@@ -856,7 +891,7 @@ function resetCurrentEvent() {
 
 
     /*
-        Reset buttons.
+        Reset Primary Action buttons.
     */
 
     actionButtons.forEach(
@@ -870,6 +905,10 @@ function resetCurrentEvent() {
     );
 
 
+    /*
+        Reset Outcome buttons.
+    */
+
     successfulButton.classList.remove(
         "selected"
     );
@@ -878,6 +917,10 @@ function resetCurrentEvent() {
         "selected"
     );
 
+
+    /*
+        Reset Result buttons.
+    */
 
     resultButtons.forEach(
         function(button) {
@@ -906,9 +949,9 @@ function resetCurrentEvent() {
 }
 
 
-// ==========================================
+// ==================================================
 // CLEAR CURRENT EVENT
-// ==========================================
+// ==================================================
 
 clearButton.addEventListener(
     "click",
@@ -920,9 +963,9 @@ clearButton.addEventListener(
 );
 
 
-// ==========================================
+// ==================================================
 // VIEW EVENTS
-// ==========================================
+// ==================================================
 
 viewEventsButton.addEventListener(
     "click",
@@ -955,9 +998,9 @@ viewEventsButton.addEventListener(
 );
 
 
-// ==========================================
+// ==================================================
 // DISPLAY EVENTS
-// ==========================================
+// ==================================================
 
 function displayEvents() {
 
@@ -1026,9 +1069,9 @@ function displayEvents() {
 }
 
 
-// ==========================================
+// ==================================================
 // CLEAR ALL GAME DATA
-// ==========================================
+// ==================================================
 
 clearGameButton.addEventListener(
     "click",
@@ -1071,10 +1114,17 @@ clearGameButton.addEventListener(
 
 
         /*
-            Refresh events.
+            Refresh event list.
         */
 
         displayEvents();
+
+
+        /*
+            Refresh heatmap if needed.
+        */
+
+        drawHeatmap();
 
     }
 );
@@ -1089,14 +1139,14 @@ heatmapButton.addEventListener(
     function() {
 
         /*
-            Draw the current events.
+            Draw current heatmap.
         */
 
         drawHeatmap();
 
 
         /*
-            Hide data collection view.
+            Hide data collection.
         */
 
         dataView.classList.add(
@@ -1114,7 +1164,7 @@ heatmapButton.addEventListener(
 
 
         /*
-            Change page instruction.
+            Update instruction.
         */
 
         document.getElementById(
@@ -1166,6 +1216,25 @@ backToDataButton.addEventListener(
 
 
 // ==================================================
+// HEATMAP FILTER
+// ==================================================
+
+heatmapActionFilter.addEventListener(
+    "change",
+    function() {
+
+        /*
+            Redraw the heatmap using
+            the selected event type.
+        */
+
+        drawHeatmap();
+
+    }
+);
+
+
+// ==================================================
 // DRAW HEATMAP
 // ==================================================
 
@@ -1179,10 +1248,49 @@ function drawHeatmap() {
 
 
     /*
+        Determine selected filter.
+    */
+
+    const selectedAction =
+        heatmapActionFilter.value;
+
+
+    /*
+        Filter events.
+    */
+
+    let filteredEvents;
+
+
+    if (
+        selectedAction === "All Events"
+    ) {
+
+        filteredEvents =
+            events;
+
+    } else {
+
+        filteredEvents =
+            events.filter(
+                function(event) {
+
+                    return (
+                        event.action ===
+                        selectedAction
+                    );
+
+                }
+            );
+
+    }
+
+
+    /*
         Update event count.
     */
 
-    if (events.length === 1) {
+    if (filteredEvents.length === 1) {
 
         heatmapEventCount.textContent =
             "1 event";
@@ -1190,7 +1298,26 @@ function drawHeatmap() {
     } else {
 
         heatmapEventCount.textContent =
-            `${events.length} events`;
+            `${filteredEvents.length} events`;
+
+    }
+
+
+    /*
+        Update description.
+    */
+
+    if (
+        selectedAction === "All Events"
+    ) {
+
+        heatmapDescription.textContent =
+            "Spatial distribution of all recorded events.";
+
+    } else {
+
+        heatmapDescription.textContent =
+            `Spatial distribution of ${selectedAction} events.`;
 
     }
 
@@ -1199,7 +1326,7 @@ function drawHeatmap() {
         Nothing to draw.
     */
 
-    if (events.length === 0) {
+    if (filteredEvents.length === 0) {
 
         return;
 
@@ -1208,10 +1335,10 @@ function drawHeatmap() {
 
     /*
         Create one heatmap point
-        for each recorded event.
+        for every filtered event.
     */
 
-    events.forEach(
+    filteredEvents.forEach(
         function(event) {
 
             const circle =
@@ -1220,6 +1347,11 @@ function drawHeatmap() {
                     "circle"
                 );
 
+
+            /*
+                Position the point using
+                our 120 x 68 pitch coordinates.
+            */
 
             circle.setAttribute(
                 "cx",
@@ -1233,9 +1365,8 @@ function drawHeatmap() {
 
 
             /*
-                The radius controls how
-                much surrounding area each
-                event influences.
+                Radius determines how much
+                surrounding area the event affects.
             */
 
             circle.setAttribute(
@@ -1250,11 +1381,8 @@ function drawHeatmap() {
 
 
             /*
-                Each point is partially
-                transparent.
-
-                Overlapping points therefore
-                become darker.
+                Transparency allows overlapping
+                events to create stronger areas.
             */
 
             circle.style.opacity =
@@ -1269,10 +1397,10 @@ function drawHeatmap() {
     );
 
 }
- 
 
-// ==========================================
+
+// ==================================================
 // INITIAL PAGE SETUP
-// ==========================================
+// ==================================================
 
 updateEventCounter();

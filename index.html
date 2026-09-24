@@ -19,9 +19,9 @@
     </p>
 
 
-    <!-- =========================
+    <!-- ==================================================
          DATA COLLECTION VIEW
-         ========================= -->
+         ================================================== -->
 
     <div id="data-view">
 
@@ -444,9 +444,9 @@
     </div>
 
 
-    <!-- =========================
+    <!-- ==================================================
          HEATMAP VIEW
-         ========================= -->
+         ================================================== -->
 
     <div
         id="heatmap-view"
@@ -456,8 +456,45 @@
         <h2>Event Heatmap</h2>
 
         <p id="heatmap-description">
-            All recorded events
+            Spatial distribution of all recorded events.
         </p>
+
+
+        <!-- =========================
+             HEATMAP FILTER
+             ========================= -->
+
+        <div id="heatmap-filter">
+
+            <label for="heatmap-action-filter">
+                Event Type:
+            </label>
+
+            <select id="heatmap-action-filter">
+
+                <option value="All Events">
+                    All Events
+                </option>
+
+                <option value="3rd Man Run">
+                    3rd Man Run
+                </option>
+
+                <option value="Switch of Play">
+                    Switch of Play
+                </option>
+
+                <option value="Penetrating Pass">
+                    Penetrating Pass
+                </option>
+
+                <option value="Progressive Carry">
+                    Progressive Carry
+                </option>
+
+            </select>
+
+        </div>
 
 
         <!-- =========================
@@ -473,7 +510,6 @@
 
             <div id="heatmap-pitch">
 
-                <!-- SVG field -->
                 <svg
                     id="heatmap-field"
                     viewBox="0 0 120 68"
@@ -608,7 +644,7 @@
                     />
 
 
-                    <!-- Heatmap points will be added here -->
+                    <!-- Heatmap points -->
 
                     <g id="heatmap-points"></g>
 
