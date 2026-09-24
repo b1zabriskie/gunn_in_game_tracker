@@ -62,10 +62,34 @@ const eventsContainer =
 
 
 // ==========================================
+// HEATMAP ELEMENTS
+// ==========================================
+
+const dataView =
+    document.getElementById("data-view");
+
+const heatmapView =
+    document.getElementById("heatmap-view");
+
+const heatmapButton =
+    document.getElementById("heatmap-button");
+
+const backToDataButton =
+    document.getElementById("back-to-data-button");
+
+const heatmapPoints =
+    document.getElementById("heatmap-points");
+
+const heatmapEventCount =
+    document.getElementById("heatmap-event-count");
+
+
+// ==========================================
 // LOCAL STORAGE
 // ==========================================
 
-const STORAGE_KEY = "soccerDataCollectionEvents";
+const STORAGE_KEY =
+    "soccerDataCollectionEvents";
 
 
 // ==========================================
@@ -164,380 +188,481 @@ function updateEventCounter() {
 // PITCH TAP
 // ==========================================
 
-pitch.addEventListener("pointerdown", function(event) {
+pitch.addEventListener(
+    "pointerdown",
+    function(event) {
 
-    const rectangle =
-        pitch.getBoundingClientRect();
-
-
-    /*
-        Convert screen coordinates
-        into our 120 x 68 pitch.
-    */
-
-    const x =
-        ((event.clientX - rectangle.left)
-        / rectangle.width) * 120;
-
-    const y =
-        ((event.clientY - rectangle.top)
-        / rectangle.height) * 68;
-
-
-    /*
-        Store location.
-    */
-
-    currentX = Number(x.toFixed(2));
-
-    currentY = Number(y.toFixed(2));
-
-
-    /*
-        Move location marker.
-    */
-
-    marker.setAttribute("cx", x);
-
-    marker.setAttribute("cy", y);
-
-    marker.style.visibility = "visible";
-
-
-    /*
-        Display coordinates.
-    */
-
-    coordinates.textContent =
-        `Pitch location: X = ${x.toFixed(1)}, Y = ${y.toFixed(1)}`;
-
-
-    /*
-        Show Primary Action.
-    */
-
-    actionSection.classList.remove("hidden");
-
-
-    /*
-        A new pitch location means
-        we're starting a new event.
-    */
-
-    currentAction = null;
-
-    selectedAction.textContent =
-        "No action selected";
-
-
-    actionButtons.forEach(function(button) {
-
-        button.classList.remove("selected");
-
-    });
-
-
-    /*
-        Reset Outcome.
-    */
-
-    outcomeSection.classList.add("hidden");
-
-    currentOutcome = null;
-
-    selectedOutcome.textContent =
-        "No outcome selected";
-
-    successfulButton.classList.remove("selected");
-
-    unsuccessfulButton.classList.remove("selected");
-
-
-    /*
-        Reset Result Tags.
-    */
-
-    resultSection.classList.add("hidden");
-
-    currentResults = [];
-
-    selectedResults.textContent =
-        "No results selected";
-
-    resultButtons.forEach(function(resultButton) {
-
-        resultButton.classList.remove("selected");
-
-    });
-
-
-    /*
-        Reset unsuccessful
-        completion section.
-    */
-
-    completeUnsuccessfulSection.classList.add("hidden");
-
-});
-
-
-// ==========================================
-// PRIMARY ACTION SELECTION
-// ==========================================
-
-actionButtons.forEach(function(button) {
-
-    button.addEventListener("click", function() {
-
-        /*
-            Store selected action.
-        */
-
-        currentAction =
-            button.dataset.action;
+        const rectangle =
+            pitch.getBoundingClientRect();
 
 
         /*
-            Only one Primary Action
-            can be selected.
+            Convert screen coordinates
+            into our 120 x 68 pitch.
         */
 
-        actionButtons.forEach(function(otherButton) {
+        const x =
+            ((event.clientX - rectangle.left)
+            / rectangle.width) * 120;
 
-            otherButton.classList.remove("selected");
-
-        });
+        const y =
+            ((event.clientY - rectangle.top)
+            / rectangle.height) * 68;
 
 
         /*
-            Highlight selected action.
+            Store location.
         */
 
-        button.classList.add("selected");
+        currentX =
+            Number(x.toFixed(2));
+
+        currentY =
+            Number(y.toFixed(2));
 
 
         /*
-            Display selected action.
+            Move location marker.
         */
+
+        marker.setAttribute(
+            "cx",
+            x
+        );
+
+        marker.setAttribute(
+            "cy",
+            y
+        );
+
+        marker.style.visibility =
+            "visible";
+
+
+        /*
+            Display coordinates.
+        */
+
+        coordinates.textContent =
+            `Pitch location: X = ${x.toFixed(1)}, Y = ${y.toFixed(1)}`;
+
+
+        /*
+            Show Primary Action.
+        */
+
+        actionSection.classList.remove(
+            "hidden"
+        );
+
+
+        /*
+            A new pitch location means
+            we're starting a new event.
+        */
+
+        currentAction = null;
 
         selectedAction.textContent =
-            `Selected: ${currentAction}`;
+            "No action selected";
 
 
-        /*
-            Show Outcome.
-        */
+        actionButtons.forEach(
+            function(button) {
 
-        outcomeSection.classList.remove("hidden");
+                button.classList.remove(
+                    "selected"
+                );
+
+            }
+        );
 
 
         /*
             Reset Outcome.
         */
 
+        outcomeSection.classList.add(
+            "hidden"
+        );
+
         currentOutcome = null;
 
         selectedOutcome.textContent =
             "No outcome selected";
 
-        successfulButton.classList.remove("selected");
+        successfulButton.classList.remove(
+            "selected"
+        );
 
-        unsuccessfulButton.classList.remove("selected");
+        unsuccessfulButton.classList.remove(
+            "selected"
+        );
 
 
         /*
-            Hide Result Tags.
+            Reset Result Tags.
         */
 
-        resultSection.classList.add("hidden");
-
-        completeUnsuccessfulSection.classList.add("hidden");
+        resultSection.classList.add(
+            "hidden"
+        );
 
         currentResults = [];
 
         selectedResults.textContent =
             "No results selected";
 
-        resultButtons.forEach(function(resultButton) {
+        resultButtons.forEach(
+            function(resultButton) {
 
-            resultButton.classList.remove("selected");
+                resultButton.classList.remove(
+                    "selected"
+                );
 
-        });
+            }
+        );
 
-    });
 
-});
+        /*
+            Reset unsuccessful
+            completion section.
+        */
+
+        completeUnsuccessfulSection.classList.add(
+            "hidden"
+        );
+
+    }
+);
+
+
+// ==========================================
+// PRIMARY ACTION SELECTION
+// ==========================================
+
+actionButtons.forEach(
+    function(button) {
+
+        button.addEventListener(
+            "click",
+            function() {
+
+                /*
+                    Store selected action.
+                */
+
+                currentAction =
+                    button.dataset.action;
+
+
+                /*
+                    Only one Primary Action
+                    can be selected.
+                */
+
+                actionButtons.forEach(
+                    function(otherButton) {
+
+                        otherButton.classList.remove(
+                            "selected"
+                        );
+
+                    }
+                );
+
+
+                /*
+                    Highlight selected action.
+                */
+
+                button.classList.add(
+                    "selected"
+                );
+
+
+                /*
+                    Display selected action.
+                */
+
+                selectedAction.textContent =
+                    `Selected: ${currentAction}`;
+
+
+                /*
+                    Show Outcome.
+                */
+
+                outcomeSection.classList.remove(
+                    "hidden"
+                );
+
+
+                /*
+                    Reset Outcome.
+                */
+
+                currentOutcome = null;
+
+                selectedOutcome.textContent =
+                    "No outcome selected";
+
+                successfulButton.classList.remove(
+                    "selected"
+                );
+
+                unsuccessfulButton.classList.remove(
+                    "selected"
+                );
+
+
+                /*
+                    Hide Result Tags.
+                */
+
+                resultSection.classList.add(
+                    "hidden"
+                );
+
+                completeUnsuccessfulSection.classList.add(
+                    "hidden"
+                );
+
+                currentResults = [];
+
+                selectedResults.textContent =
+                    "No results selected";
+
+                resultButtons.forEach(
+                    function(resultButton) {
+
+                        resultButton.classList.remove(
+                            "selected"
+                        );
+
+                    }
+                );
+
+            }
+        );
+
+    }
+);
 
 
 // ==========================================
 // SUCCESSFUL
 // ==========================================
 
-successfulButton.addEventListener("click", function() {
+successfulButton.addEventListener(
+    "click",
+    function() {
 
-    currentOutcome = "Successful";
-
-
-    /*
-        Highlight Successful.
-    */
-
-    successfulButton.classList.add("selected");
-
-    unsuccessfulButton.classList.remove("selected");
+        currentOutcome =
+            "Successful";
 
 
-    /*
-        Display outcome.
-    */
+        /*
+            Highlight Successful.
+        */
 
-    selectedOutcome.textContent =
-        "Selected: Successful";
+        successfulButton.classList.add(
+            "selected"
+        );
 
-
-    /*
-        Show Result Tags.
-    */
-
-    resultSection.classList.remove("hidden");
+        unsuccessfulButton.classList.remove(
+            "selected"
+        );
 
 
-    /*
-        Hide unsuccessful completion.
-    */
+        /*
+            Display outcome.
+        */
 
-    completeUnsuccessfulSection.classList.add("hidden");
+        selectedOutcome.textContent =
+            "Selected: Successful";
 
-});
+
+        /*
+            Show Result Tags.
+        */
+
+        resultSection.classList.remove(
+            "hidden"
+        );
+
+
+        /*
+            Hide unsuccessful completion.
+        */
+
+        completeUnsuccessfulSection.classList.add(
+            "hidden"
+        );
+
+    }
+);
 
 
 // ==========================================
 // UNSUCCESSFUL
 // ==========================================
 
-unsuccessfulButton.addEventListener("click", function() {
+unsuccessfulButton.addEventListener(
+    "click",
+    function() {
 
-    currentOutcome = "Unsuccessful";
-
-
-    /*
-        Highlight Unsuccessful.
-    */
-
-    unsuccessfulButton.classList.add("selected");
-
-    successfulButton.classList.remove("selected");
+        currentOutcome =
+            "Unsuccessful";
 
 
-    /*
-        Display outcome.
-    */
+        /*
+            Highlight Unsuccessful.
+        */
 
-    selectedOutcome.textContent =
-        "Selected: Unsuccessful";
+        unsuccessfulButton.classList.add(
+            "selected"
+        );
 
-
-    /*
-        Unsuccessful actions do not
-        have Result Tags.
-    */
-
-    resultSection.classList.add("hidden");
+        successfulButton.classList.remove(
+            "selected"
+        );
 
 
-    /*
-        Clear any previous results.
-    */
+        /*
+            Display outcome.
+        */
 
-    currentResults = [];
-
-    selectedResults.textContent =
-        "No results selected";
-
-    resultButtons.forEach(function(button) {
-
-        button.classList.remove("selected");
-
-    });
+        selectedOutcome.textContent =
+            "Selected: Unsuccessful";
 
 
-    /*
-        Show completion button.
-    */
+        /*
+            Hide Result Tags.
+        */
 
-    completeUnsuccessfulSection.classList.remove("hidden");
+        resultSection.classList.add(
+            "hidden"
+        );
 
-});
+
+        /*
+            Clear previous results.
+        */
+
+        currentResults = [];
+
+        selectedResults.textContent =
+            "No results selected";
+
+        resultButtons.forEach(
+            function(button) {
+
+                button.classList.remove(
+                    "selected"
+                );
+
+            }
+        );
+
+
+        /*
+            Show completion button.
+        */
+
+        completeUnsuccessfulSection.classList.remove(
+            "hidden"
+        );
+
+    }
+);
 
 
 // ==========================================
 // RESULT TAGS
 // ==========================================
 
-resultButtons.forEach(function(button) {
+resultButtons.forEach(
+    function(button) {
 
-    button.addEventListener("click", function() {
+        button.addEventListener(
+            "click",
+            function() {
 
-        const result =
-            button.dataset.result;
-
-
-        /*
-            Check whether this result
-            is already selected.
-        */
-
-        const index =
-            currentResults.indexOf(result);
+                const result =
+                    button.dataset.result;
 
 
-        if (index === -1) {
+                /*
+                    Check whether this result
+                    is already selected.
+                */
 
-            /*
-                Result is NOT selected.
-
-                Add it to the array.
-            */
-
-            currentResults.push(result);
-
-            button.classList.add("selected");
-
-        } else {
-
-            /*
-                Result IS already selected.
-
-                Remove it from the array.
-            */
-
-            currentResults.splice(index, 1);
-
-            button.classList.remove("selected");
-
-        }
+                const index =
+                    currentResults.indexOf(
+                        result
+                    );
 
 
-        /*
-            Update text underneath
-            the buttons.
-        */
+                if (index === -1) {
 
-        if (currentResults.length === 0) {
+                    /*
+                        Result is NOT selected.
 
-            selectedResults.textContent =
-                "No results selected";
+                        Add it.
+                    */
 
-        } else {
+                    currentResults.push(
+                        result
+                    );
 
-            selectedResults.textContent =
-                `Selected: ${currentResults.join(", ")}`;
+                    button.classList.add(
+                        "selected"
+                    );
 
-        }
+                } else {
 
-    });
+                    /*
+                        Result IS selected.
 
-});
+                        Remove it.
+                    */
+
+                    currentResults.splice(
+                        index,
+                        1
+                    );
+
+                    button.classList.remove(
+                        "selected"
+                    );
+
+                }
+
+
+                /*
+                    Update text.
+                */
+
+                if (
+                    currentResults.length === 0
+                ) {
+
+                    selectedResults.textContent =
+                        "No results selected";
+
+                } else {
+
+                    selectedResults.textContent =
+                        `Selected: ${currentResults.join(", ")}`;
+
+                }
+
+            }
+        );
+
+    }
+);
 
 
 // ==========================================
@@ -575,8 +700,7 @@ completeUnsuccessfulButton.addEventListener(
 function recordEvent() {
 
     /*
-        Make sure the required information
-        exists before saving.
+        Make sure required information exists.
     */
 
     if (
@@ -596,7 +720,7 @@ function recordEvent() {
 
 
     /*
-        Create the event object.
+        Create event object.
     */
 
     const newEvent = {
@@ -620,15 +744,16 @@ function recordEvent() {
 
 
     /*
-        Add event to our events array.
+        Add event.
     */
 
-    events.push(newEvent);
+    events.push(
+        newEvent
+    );
 
 
     /*
-        Save the updated array
-        to localStorage.
+        Save to localStorage.
     */
 
     saveEvents();
@@ -642,7 +767,7 @@ function recordEvent() {
 
 
     /*
-        Show confirmation.
+        Confirmation.
     */
 
     eventStatus.textContent =
@@ -650,23 +775,24 @@ function recordEvent() {
 
 
     /*
-        Reset the current event
-        so the next action can be entered.
+        Reset current event.
     */
 
     resetCurrentEvent();
 
 
     /*
-        After a short delay, restore
-        the normal event counter.
+        Restore normal counter.
     */
 
-    setTimeout(function() {
+    setTimeout(
+        function() {
 
-        updateEventCounter();
+            updateEventCounter();
 
-    }, 1500);
+        },
+        1500
+    );
 
 }
 
@@ -681,7 +807,8 @@ function resetCurrentEvent() {
         Hide marker.
     */
 
-    marker.style.visibility = "hidden";
+    marker.style.visibility =
+        "hidden";
 
 
     /*
@@ -700,13 +827,21 @@ function resetCurrentEvent() {
         Hide workflow sections.
     */
 
-    actionSection.classList.add("hidden");
+    actionSection.classList.add(
+        "hidden"
+    );
 
-    outcomeSection.classList.add("hidden");
+    outcomeSection.classList.add(
+        "hidden"
+    );
 
-    resultSection.classList.add("hidden");
+    resultSection.classList.add(
+        "hidden"
+    );
 
-    completeUnsuccessfulSection.classList.add("hidden");
+    completeUnsuccessfulSection.classList.add(
+        "hidden"
+    );
 
 
     /*
@@ -721,34 +856,38 @@ function resetCurrentEvent() {
 
 
     /*
-        Reset Primary Action buttons.
+        Reset buttons.
     */
 
-    actionButtons.forEach(function(button) {
+    actionButtons.forEach(
+        function(button) {
 
-        button.classList.remove("selected");
+            button.classList.remove(
+                "selected"
+            );
 
-    });
-
-
-    /*
-        Reset Outcome buttons.
-    */
-
-    successfulButton.classList.remove("selected");
-
-    unsuccessfulButton.classList.remove("selected");
+        }
+    );
 
 
-    /*
-        Reset Result buttons.
-    */
+    successfulButton.classList.remove(
+        "selected"
+    );
 
-    resultButtons.forEach(function(button) {
+    unsuccessfulButton.classList.remove(
+        "selected"
+    );
 
-        button.classList.remove("selected");
 
-    });
+    resultButtons.forEach(
+        function(button) {
+
+            button.classList.remove(
+                "selected"
+            );
+
+        }
+    );
 
 
     /*
@@ -789,18 +928,16 @@ viewEventsButton.addEventListener(
     "click",
     function() {
 
-        /*
-            Toggle visibility.
-        */
-
-        eventsList.classList.toggle("hidden");
+        eventsList.classList.toggle(
+            "hidden"
+        );
 
 
-        /*
-            Change button text.
-        */
-
-        if (eventsList.classList.contains("hidden")) {
+        if (
+            eventsList.classList.contains(
+                "hidden"
+            )
+        ) {
 
             viewEventsButton.textContent =
                 "View Events";
@@ -839,50 +976,52 @@ function displayEvents() {
 
 
     /*
-        Create HTML for each event.
+        Create event cards.
     */
 
     eventsContainer.innerHTML =
-        events.map(function(event, index) {
+        events.map(
+            function(event, index) {
 
-            const resultsText =
-                event.results.length > 0
-                    ? event.results.join(", ")
-                    : "None";
+                const resultsText =
+                    event.results.length > 0
+                        ? event.results.join(", ")
+                        : "None";
 
 
-            return `
-                <div class="event-card">
+                return `
+                    <div class="event-card">
 
-                    <p>
-                        <strong>Event ${index + 1}</strong>
-                    </p>
+                        <p>
+                            <strong>Event ${index + 1}</strong>
+                        </p>
 
-                    <p>
-                        <strong>Location:</strong>
-                        X = ${event.x},
-                        Y = ${event.y}
-                    </p>
+                        <p>
+                            <strong>Location:</strong>
+                            X = ${event.x},
+                            Y = ${event.y}
+                        </p>
 
-                    <p>
-                        <strong>Action:</strong>
-                        ${event.action}
-                    </p>
+                        <p>
+                            <strong>Action:</strong>
+                            ${event.action}
+                        </p>
 
-                    <p>
-                        <strong>Outcome:</strong>
-                        ${event.outcome}
-                    </p>
+                        <p>
+                            <strong>Outcome:</strong>
+                            ${event.outcome}
+                        </p>
 
-                    <p>
-                        <strong>Results:</strong>
-                        ${resultsText}
-                    </p>
+                        <p>
+                            <strong>Results:</strong>
+                            ${resultsText}
+                        </p>
 
-                </div>
-            `;
+                    </div>
+                `;
 
-        }).join("");
+            }
+        ).join("");
 
 }
 
@@ -894,11 +1033,6 @@ function displayEvents() {
 clearGameButton.addEventListener(
     "click",
     function() {
-
-        /*
-            Ask for confirmation before
-            deleting all saved events.
-        */
 
         const confirmed =
             confirm(
@@ -914,17 +1048,19 @@ clearGameButton.addEventListener(
 
 
         /*
-            Empty events array.
+            Empty event array.
         */
 
         events = [];
 
 
         /*
-            Remove stored data.
+            Remove localStorage data.
         */
 
-        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem(
+            STORAGE_KEY
+        );
 
 
         /*
@@ -935,7 +1071,7 @@ clearGameButton.addEventListener(
 
 
         /*
-            Refresh event list.
+            Refresh events.
         */
 
         displayEvents();
@@ -943,6 +1079,197 @@ clearGameButton.addEventListener(
     }
 );
 
+
+// ==================================================
+// SHOW HEATMAP
+// ==================================================
+
+heatmapButton.addEventListener(
+    "click",
+    function() {
+
+        /*
+            Draw the current events.
+        */
+
+        drawHeatmap();
+
+
+        /*
+            Hide data collection view.
+        */
+
+        dataView.classList.add(
+            "hidden"
+        );
+
+
+        /*
+            Show heatmap.
+        */
+
+        heatmapView.classList.remove(
+            "hidden"
+        );
+
+
+        /*
+            Change page instruction.
+        */
+
+        document.getElementById(
+            "page-instruction"
+        ).textContent =
+            "Spatial distribution of recorded events.";
+
+    }
+);
+
+
+// ==================================================
+// RETURN TO DATA COLLECTION
+// ==================================================
+
+backToDataButton.addEventListener(
+    "click",
+    function() {
+
+        /*
+            Hide heatmap.
+        */
+
+        heatmapView.classList.add(
+            "hidden"
+        );
+
+
+        /*
+            Show data collection.
+        */
+
+        dataView.classList.remove(
+            "hidden"
+        );
+
+
+        /*
+            Restore instruction.
+        */
+
+        document.getElementById(
+            "page-instruction"
+        ).textContent =
+            "Tap the location where the action started.";
+
+    }
+);
+
+
+// ==================================================
+// DRAW HEATMAP
+// ==================================================
+
+function drawHeatmap() {
+
+    /*
+        Remove previous heatmap points.
+    */
+
+    heatmapPoints.innerHTML = "";
+
+
+    /*
+        Update event count.
+    */
+
+    if (events.length === 1) {
+
+        heatmapEventCount.textContent =
+            "1 event";
+
+    } else {
+
+        heatmapEventCount.textContent =
+            `${events.length} events`;
+
+    }
+
+
+    /*
+        Nothing to draw.
+    */
+
+    if (events.length === 0) {
+
+        return;
+
+    }
+
+
+    /*
+        Create one heatmap point
+        for each recorded event.
+    */
+
+    events.forEach(
+        function(event) {
+
+            const circle =
+                document.createElementNS(
+                    "http://www.w3.org/2000/svg",
+                    "circle"
+                );
+
+
+            circle.setAttribute(
+                "cx",
+                event.x
+            );
+
+            circle.setAttribute(
+                "cy",
+                event.y
+            );
+
+
+            /*
+                The radius controls how
+                much surrounding area each
+                event influences.
+            */
+
+            circle.setAttribute(
+                "r",
+                "5"
+            );
+
+
+            circle.classList.add(
+                "heatmap-point"
+            );
+
+
+            /*
+                Each point is partially
+                transparent.
+
+                Overlapping points therefore
+                become darker.
+            */
+
+            circle.style.opacity =
+                "0.18";
+
+
+            heatmapPoints.appendChild(
+                circle
+            );
+
+        }
+    );
+
+}
+ 
 
 // ==========================================
 // INITIAL PAGE SETUP

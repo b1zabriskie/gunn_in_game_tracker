@@ -155,7 +155,8 @@ p {
 #outcome-section,
 #result-section,
 #complete-unsuccessful-section,
-#events-section {
+#events-section,
+#heatmap-controls {
     margin: 20px auto;
     max-width: 900px;
 }
@@ -387,7 +388,8 @@ p {
    VIEW EVENTS BUTTON
    ========================= */
 
-#view-events-button {
+#view-events-button,
+#heatmap-button {
     padding: 10px 25px;
 
     font-size: 16px;
@@ -458,13 +460,139 @@ p {
 }
 
 
+/* ==================================================
+   HEATMAP VIEW
+   ================================================== */
+
+#heatmap-view {
+    margin-top: 25px;
+}
+
+
+/* =========================
+   HEATMAP PITCH CONTAINER
+   ========================= */
+
+.heatmap-pitch-container {
+    width: 95vw;
+    max-width: 1400px;
+
+    margin: 25px auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 15px;
+}
+
+
+/* =========================
+   HEATMAP PITCH
+   ========================= */
+
+#heatmap-pitch {
+    width: 100%;
+
+    border: 3px solid white;
+    outline: 2px solid black;
+
+    box-sizing: border-box;
+
+    overflow: hidden;
+}
+
+
+#heatmap-field {
+    display: block;
+
+    width: 100%;
+    height: auto;
+
+    background-color: #4caf50;
+}
+
+
+/* =========================
+   HEATMAP POINTS
+   ========================= */
+
+.heatmap-point {
+    fill: red;
+
+    pointer-events: none;
+}
+
+
+/* =========================
+   HEATMAP LEGEND
+   ========================= */
+
+.heatmap-legend {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    margin: 20px auto;
+
+    font-size: 14px;
+}
+
+
+.heatmap-gradient {
+    width: 250px;
+    height: 18px;
+
+    border-radius: 9px;
+
+    background: linear-gradient(
+        to right,
+        rgba(255, 0, 0, 0.05),
+        rgba(255, 0, 0, 0.25),
+        rgba(255, 0, 0, 0.50),
+        rgba(255, 0, 0, 0.75),
+        rgba(255, 0, 0, 1)
+    );
+}
+
+
+/* =========================
+   HEATMAP EVENT COUNT
+   ========================= */
+
+#heatmap-event-count {
+    margin: 15px;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   BACK BUTTON
+   ========================= */
+
+.back-button {
+    margin-top: 15px;
+
+    padding: 12px 30px;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+
 /* =========================
    SMALLER SCREENS
    ========================= */
 
 @media (max-width: 800px) {
 
-    .pitch-container {
+    .pitch-container,
+    .heatmap-pitch-container {
         gap: 8px;
     }
 
@@ -478,5 +606,9 @@ p {
 
     .result-buttons {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .heatmap-gradient {
+        width: 150px;
     }
 }
