@@ -153,14 +153,17 @@ p {
 
 #action-section,
 #outcome-section,
-#result-section {
+#result-section,
+#complete-unsuccessful-section,
+#events-section {
     margin: 20px auto;
     max-width: 900px;
 }
 
 #action-section h2,
 #outcome-section h2,
-#result-section h2 {
+#result-section h2,
+#events-section h2 {
     margin-bottom: 12px;
 }
 
@@ -290,14 +293,6 @@ p {
 }
 
 
-/*
-    The result buttons are intentionally
-    separate from the primary-action buttons.
-
-    Multiple buttons can be selected at
-    the same time.
-*/
-
 .result-buttons {
     display: grid;
 
@@ -327,14 +322,6 @@ p {
 }
 
 
-/*
-    Selected result tags stay highlighted.
-
-    Unlike Primary Action, clicking another
-    result does NOT remove the previous
-    selection.
-*/
-
 .result-button.selected {
     background-color: #4caf50;
 
@@ -358,19 +345,91 @@ p {
 
 
 /* =========================
-   HIDDEN SECTIONS
+   COMPLETE EVENT BUTTON
    ========================= */
 
-.hidden {
-    display: none;
+.complete-button {
+    margin-top: 20px;
+
+    padding: 14px 35px;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    border: 2px solid #2e7d32;
+    border-radius: 6px;
+
+    background-color: #4caf50;
+    color: white;
+
+    cursor: pointer;
+}
+
+
+.complete-button:hover {
+    background-color: #388e3c;
 }
 
 
 /* =========================
-   CLEAR BUTTON
+   EVENT STATUS
    ========================= */
 
-#clear-button {
+#event-status {
+    margin: 25px auto 15px auto;
+
+    font-size: 18px;
+    font-weight: bold;
+}
+
+
+/* =========================
+   VIEW EVENTS BUTTON
+   ========================= */
+
+#view-events-button {
+    padding: 10px 25px;
+
+    font-size: 16px;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   EVENTS LIST
+   ========================= */
+
+#events-list {
+    margin-top: 20px;
+
+    text-align: left;
+}
+
+
+.event-card {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+
+    padding: 12px;
+
+    margin-bottom: 10px;
+
+    background-color: #f8f8f8;
+}
+
+
+.event-card p {
+    margin: 5px 0;
+}
+
+
+/* =========================
+   CLEAR BUTTONS
+   ========================= */
+
+#clear-button,
+#clear-game-button {
     margin-top: 10px;
 
     padding: 10px 25px;
@@ -378,6 +437,24 @@ p {
     font-size: 16px;
 
     cursor: pointer;
+}
+
+
+#clear-game-button {
+    margin-left: 10px;
+
+    border: 1px solid #b71c1c;
+
+    color: #b71c1c;
+}
+
+
+/* =========================
+   HIDDEN SECTIONS
+   ========================= */
+
+.hidden {
+    display: none;
 }
 
 

@@ -331,15 +331,91 @@
             No results selected
         </div>
 
+
+        <!-- Complete successful event -->
+
+        <button
+            id="complete-event-button"
+            class="complete-button"
+        >
+            Complete Event
+        </button>
+
     </section>
 
 
     <!-- =========================
-         CLEAR BUTTON
+         COMPLETE UNSUCCESSFUL EVENT
+         ========================= -->
+
+    <section
+        id="complete-unsuccessful-section"
+        class="hidden"
+    >
+
+        <button
+            id="complete-unsuccessful-button"
+            class="complete-button"
+        >
+            Complete Event
+        </button>
+
+    </section>
+
+
+    <!-- =========================
+         EVENT STATUS
+         ========================= -->
+
+    <div id="event-status">
+        0 events recorded
+    </div>
+
+
+    <!-- =========================
+         VIEW EVENTS
+         ========================= -->
+
+    <section id="events-section">
+
+        <button
+            id="view-events-button"
+        >
+            View Events
+        </button>
+
+
+        <div
+            id="events-list"
+            class="hidden"
+        >
+
+            <h2>Recorded Events</h2>
+
+            <div id="events-container">
+                No events recorded.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CLEAR CURRENT EVENT
          ========================= -->
 
     <button id="clear-button">
-        Clear
+        Clear Current Event
+    </button>
+
+
+    <!-- =========================
+         CLEAR GAME DATA
+         ========================= -->
+
+    <button id="clear-game-button">
+        Clear All Game Data
     </button>
 
 
